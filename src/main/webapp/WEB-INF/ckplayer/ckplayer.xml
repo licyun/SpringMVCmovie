@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ckplayer>
+  <style>
+		<cpath></cpath>
+
+		<language></language>
+
+		<flashvars>{b->1}{p->1}</flashvars>
+
+		<setup>1,1,1,1,1,2,0,1,2,0,0,1,200,0,2,1,0,1,1,1,0,10,3,0,1,2,3000,0,0,0,0,1,1,1,1,1,1,250,0,90,0,1</setup>
+
+		<pm_bg>0x000000,100,230,180</pm_bg>
+
+		<mylogo>logo.swf</mylogo>
+
+		<pm_mylogo>1,1,-100,-55</pm_mylogo>
+
+		<logo>cklogo.png</logo>
+
+		<pm_logo>2,0,-100,20</pm_logo>
+
+		<control_rel>related.swf,related.xml,0</control_rel>
+
+		<control_pv>Preview.swf,105,2000</control_pv>
+
+		<pm_repc></pm_repc>
+
+		<pm_spac>|</pm_spac>
+
+		<pm_fpac>file->f</pm_fpac>
+
+		<pm_advtime>2,0,-110,10,0,300,0</pm_advtime>
+
+		<pm_advstatus>1,2,2,-200,-40</pm_advstatus>
+
+		<pm_advjp>1,0,2,2,-100,-40</pm_advjp>
+
+		<pm_padvc>2,0,-10,-10</pm_padvc>
+
+		<pm_advms>2,2,-46,-56</pm_advms>
+
+		<pm_zip>1,1,-20,-8,1,0,0</pm_zip>
+
+		<pm_advmarquee>1,2,50,-60,50,18,0,0x000000,50,0,20,1,30,2000</pm_advmarquee>
+
+		<pm_glowfilter>0,0x01485d, 100, 6, 3, 10, 1, 0, 0</pm_glowfilter>
+
+		<advmarquee>{a href='http://www.ckplayer.com'}{font color='#FFFFFF' size='12'}注意啊！！由于点播技术限制，不定期出现播放失败的情况，这很正常！请淡定，不要躁动。有时候加载失败，请刷新重试就好，如果还是不行，请切换其他播放方式，实在不行请使用百度云地址，迅雷边下边看或者播放器播放。感觉好用，请分享我们的网站 迅雷影院 www.xunleiyy.com 给小伙伴们啊~啊~啊~~~~{/font}{/a}</advmarquee>
+	
+		<mainfuntion></mainfuntion>
+	
+		<flashplayer></flashplayer>
+	
+		<calljs>ckplayer_status,ckadjump,playerstop,ckmarqueeadv</calljs>
+	
+		<myweb></myweb>
+		
+	
+		<cpt_lights>0</cpt_lights>
+	
+		<cpt_share>/ckplayer/share.xml</cpt_share>
+	<!--
+		<cpt>right.swf,2,1,0,0,2,0</cpt>
+		<cpt>share.swf,1,1,-180,-100,3,0</cpt>
+		<cpt>adjustment.swf,1,1,-180,-100,3,0</cpt>
+	-->
+	</style>
+</ckplayer>

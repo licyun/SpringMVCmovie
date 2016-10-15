@@ -27,10 +27,15 @@
         <property name="filterChainDefinitions">
             <value>
                 <!--anon 表示匿名访问，不需要认证以及授权-->
+                /=anon
+                /index=anon
                 /admin/login=anon
                 <!--authc表示需要认证 没有进行身份认证是不能进行访问的-->
-                /=authc
+                /video/vip=authc
+                /video/vipplus=authc
                 /index=authc
+                /role=roles[teacher]
+                /permission=perms["user:create"]
             </value>
         </property>
     </bean>

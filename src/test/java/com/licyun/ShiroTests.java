@@ -15,7 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.junit.Test;
 
-public class ShioTests{
+public class ShiroTests {
     @Test
     public void shiro_test1(){
         //获取SecurityManager工厂，此处使用ini配置文件初始化SecurityManager

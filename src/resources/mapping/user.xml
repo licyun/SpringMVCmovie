@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.licyun.dao.UserDao" >
+    <resultMap id="BaseResultMap" type="com.licyun.model.User" >
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, username, mobile
+    </sql>
+
+    <select id="findByUserName" parameterType="String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user where username=#{username}
+    </select>
+
+    <select id="findAllUsers" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from user
+    </select>
+
+    <insert id="insertUser" parameterType="com.licyun.model.User">
+        INSERT INTO user (username, mobile) VALUES (#{username}, #{mobile})
+    </insert>
+
+    <update id="updateUser" parameterType="com.licyun.model.User">
+        UPDATE user SET username = #{username}, mobile = #{mobile}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE from user WHERE id = #{id}
+    </delete>
+
+</mapper>

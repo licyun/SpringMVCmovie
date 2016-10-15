@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="springMVC-mybatis-framework:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="springMVC-mybatis-framework.war">
+      <element id="artifact" artifact-name="springMVC-mybatis-framework:war exploded" />
+    </root>
+  </artifact>
+</component>

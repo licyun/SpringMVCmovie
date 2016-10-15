@@ -8,7 +8,7 @@ package com.licyun.model;
 public class User {
     int id;
     String username;
-    String mobile;
+    String password;
 
     public int getId() {
         return id;
@@ -26,11 +26,11 @@ public class User {
         this.username = username;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

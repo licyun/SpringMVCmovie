@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - mybatis@localhost" uuid="eb4d1f38-69d6-44ea-baf1-f8ba8a0ecfaf">
+  <data-source name="MySQL - movie@localhost" uuid="5290fa08-0258-4a0d-95ca-f39b087e3187">
     <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <schema name="" catalog="mybatis"/>
-    <table name="order" schema="" catalog="mybatis" type="TABLE">
-      <column name="order_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="order_no" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="money" sqlType="FLOAT UNSIGNED" precision="10" scale="2" nullable="true" jdbcType="7" def="MC4wMA=="/>
-      <primary-key name="PRIMARY" columns="order_id"/>
+    <schema name="" catalog="movie"/>
+    <table name="role_permission" schema="" catalog="movie" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="role_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="permission" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="user" schema="" catalog="mybatis" type="TABLE">
-      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="username" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="mobile" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+    <table name="user" schema="" catalog="movie" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="username" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="user_role" schema="" catalog="movie" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="role_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
   </data-source>

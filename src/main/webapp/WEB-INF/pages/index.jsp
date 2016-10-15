@@ -19,13 +19,13 @@
     <table class="table">
         <tr>
             <td>name</td>
-            <td>mobile</td>
+            <td>password</td>
             <td>删除</td>
         </tr>
         <c:forEach items="${users}" var="user">
             <tr>
                 <td>${user.username}</td>
-                <td>${user.mobile}</td>
+                <td>${user.password}</td>
                 <td><a href="${pageContext.request.contextPath }/deleteUser-${user.id}">删除</a></td>
             </tr>
         </c:forEach>

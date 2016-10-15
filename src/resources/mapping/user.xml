@@ -4,10 +4,10 @@
     <resultMap id="BaseResultMap" type="com.licyun.model.User" >
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
-        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List" >
-        id, username, mobile
+        id, username, password
     </sql>
 
     <select id="findByUserName" parameterType="String" resultMap="BaseResultMap">
@@ -15,16 +15,27 @@
         from user where username=#{username}
     </select>
 
+    <select id="findRolesByUserName" parameterType="String" resultType="String">
+        SELECT r.role_name from user_role r, user u
+        WHERE r.username = u.username AND u.username = #{username};
+    </select>
+
+    <select id="findPermissionsByUserName" parameterType="String" resultType="String">
+      SELECT p.permission from user u, user_role r, role_permission p
+      WHERE p.role_name = r.role_name AND r.username = u.username
+       AND u.username = #{username}
+    </select>
+
     <select id="findAllUsers" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from user
     </select>
 
     <insert id="insertUser" parameterType="com.licyun.model.User">
-        INSERT INTO user (username, mobile) VALUES (#{username}, #{mobile})
+        INSERT INTO user (username, password) VALUES (#{username}, #{password})
     </insert>
 
     <update id="updateUser" parameterType="com.licyun.model.User">
-        UPDATE user SET username = #{username}, mobile = #{mobile}
+        UPDATE user SET username = #{username}, password = #{password}
     </update>
 
     <delete id="deleteById" parameterType="int">

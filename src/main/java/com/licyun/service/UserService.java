@@ -3,6 +3,7 @@ package com.licyun.service;
 import com.licyun.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 李呈云
@@ -11,7 +12,11 @@ import java.util.List;
  */
 public interface UserService {
 
-    User findByName(String username);
+    User findByName(String name);
+
+    Set<String> findRolesByUserName(String userName);
+
+    Set<String> findPermissionsByUserName(String userName);
 
     List<User> findAllUsers();
 

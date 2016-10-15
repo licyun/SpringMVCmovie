@@ -1,7 +1,7 @@
 <%--
   User: 李呈云
-  Date: 2016/10/14
-  Time: 20:30
+  Date: 2016/10/15
+  Time: 11:30
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -18,7 +18,7 @@
 <body>
 <form:form modelAttribute="user" method="post" role="form">
     <div class="form-group">
-        <label>userName</label>
+        <label>name</label>
         <form:input path="username"/>
     </div>
     <div class="form-group">

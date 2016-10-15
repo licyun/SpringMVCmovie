@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 李呈云
@@ -20,8 +21,16 @@ public class UserServiceImp implements UserService {
     @Resource
     private UserDao userdao;
 
-    public User findByName(String username){
-        return userdao.findByUserName(username);
+    public User findByName(String name){
+        return userdao.findByUserName(name);
+    }
+
+    public Set<String> findRolesByUserName(String userName){
+        return userdao.findRolesByUserName(userName);
+    }
+
+    public Set<String> findPermissionsByUserName(String userName){
+        return userdao.findPermissionsByUserName(userName);
     }
 
     public List<User> findAllUsers(){

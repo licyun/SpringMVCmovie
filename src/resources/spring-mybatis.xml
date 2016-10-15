@@ -11,15 +11,20 @@
 			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
         >
+
+    <description>Mybatis Configuration</description>
+
     <!-- 自动扫描(自动注入) -->
     <context:component-scan base-package="com.licyun.service"/>
     <context:component-scan base-package="com.licyun.dao"/>
+    <context:component-scan base-package="com.licyun.shiro"/>
+    <context:component-scan base-package="com.licyun.model"/>
 
     <!-- 引入配置文件 -->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:database.properties" />
-    </bean>
+    <!--<bean id="propertyConfigurer"-->
+          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location" value="classpath:database.properties" />-->
+    <!--</bean>-->
     <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
         <property name="resultSetLogEnabled" value="true" />
     </bean>
@@ -57,7 +62,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath*:mapping/user.xml"></property>
+        <property name="mapperLocations" value="classpath:mapping/user.xml"></property>
     </bean>
 
 

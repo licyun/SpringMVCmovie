@@ -63,7 +63,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:jconsole:1.8.0">
         <CLASSES>
-          <root url="jar://D:/JAVA_WEB/jdk1.8/lib/jconsole.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jdk1.8/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -72,7 +72,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
-          <root url="jar://D:/JAVA_WEB/jdk1.8/lib/tools.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../jdk1.8/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -88,10 +88,21 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:3.0-alpha-1" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-all:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-guice:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.inject:guice:3.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.inject.extensions:guice-multibindings:3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-core:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-web:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-quartz:1.2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.opensymphony.quartz:quartz:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.shiro:shiro-spring:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.21" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
   </component>
 </module>

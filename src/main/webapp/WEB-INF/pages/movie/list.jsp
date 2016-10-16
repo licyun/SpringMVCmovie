@@ -10,10 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <c:import url="common/inc.jsp"/>
+    <c:import url="../common/inc.jsp"/>
 </head>
 <body>
-<c:import url="common/header.jsp"/>
+<c:import url="../common/header.jsp"/>
 
 </body>
 </html>

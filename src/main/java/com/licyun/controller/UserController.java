@@ -2,6 +2,7 @@ package com.licyun.controller;
 
 import com.licyun.model.User;
 import com.licyun.service.UserService;
+import com.licyun.util.UploadImg;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -11,8 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -23,64 +28,62 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
+    //图片路径
+    private final String IMGURL = "/WEB-INF/img";
+
+    @Autowired
+    private UploadImg uploadImg;
+
     @Autowired
     private UserService userService;
 
-    /**
-     * 访问首页
-     * @return
-     */
-    @RequestMapping(value = {"/"}, method = {RequestMethod.GET})
-    public String index(){
-        return "index";
+    @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
+    public String login(Model model){
+        model.addAttribute("user", new User());
+        return "user/login";
+    }
+    @RequestMapping(value = {"/user/login"}, method = {RequestMethod.POST})
+    public String login(@Valid User user, Model model){
+        model.addAttribute("user", new User());
+        return "user/login";
     }
 
+    @RequestMapping(value = {"/user", "/user/index"}, method = {RequestMethod.GET})
+    public String index(){
+        return "user/index";
+    }
+
+    @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.GET})
+    public String editUser(@PathVariable int uid, Model model){
+        model.addAttribute("user", new User());
+        return "user/edituser";
+    }
+
+    @RequestMapping(value = {"/user/editimg-{uid}"}, method = {RequestMethod.GET})
+    public String editImg(@PathVariable int uid, Model model){
+        model.addAttribute("user", userService.findByUserId(uid));
+        return "user/editimg";
+    }
 
     /**
-     * 登录
+     * 修改图片 post
+     * @param request
+     * @param session
+     * @param file    图片文件
      * @param model
      * @return
      */
-    @RequestMapping(value = {"/admin/login"}, method = {RequestMethod.GET})
-    public String login(Model model) {
-        model.addAttribute("user", new User());
-        return "admin/login";
-    }
-    @RequestMapping(value = {"/admin/login"}, method = {RequestMethod.POST})
-    public String login(@Valid User user, Model model){
-        //shiro验证
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        try{
-            subject.login(token);
-            model.addAttribute("users", userService.findAllUsers());
-            return "index";
-        }catch (Exception e){
-            model.addAttribute("error", "用户名密码错误");
-            return "admin/login";
-        }
+    @RequestMapping(value = "/user/edit-img", method = RequestMethod.POST)
+    public String uploadFileHandler(HttpServletRequest request, HttpSession session,
+                                    @RequestParam("file") MultipartFile file, Model model) {
+        User user = (User) session.getAttribute("user");
+        // 上传目录
+        String rootPath = request.getServletContext().getRealPath(IMGURL);
+        System.out.println(rootPath);
+        uploadImg.uploadimg(file, user, rootPath);
+        model.addAttribute("user", user);
+        return "user/index";
     }
 
-    @RequestMapping(value = {"/admin/403"}, method = {RequestMethod.GET})
-    public String noPermission(Model model) {
-        model.addAttribute("user", new User());
-        return "admin/login";
-    }
-
-    @RequestMapping(value = {"/list-{type}"}, method = {RequestMethod.GET})
-    public String listType(@PathVariable String type){
-        return "list";
-    }
-
-    @RequestMapping(value = {"/play-{type}"}, method = {RequestMethod.GET})
-    public String playType(@PathVariable  String type){
-        return "play";
-    }
-
-    @RequestMapping(value = {"/ckplay-{vid}"}, method = {RequestMethod.GET})
-    public String ckPlay(@PathVariable String vid, Model model){
-        model.addAttribute("vid", vid);
-        return "ckplay";
-    }
 
 }

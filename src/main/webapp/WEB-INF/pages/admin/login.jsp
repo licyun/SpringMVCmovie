@@ -11,23 +11,37 @@
 <head>
     <meta charset="UTF-8">
     <title>mybatis test</title>
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <c:import url="../common/inc.jsp"/>
 </head>
 <body>
-<form:form modelAttribute="user" method="post" role="form">
-    <div class="form-group">
-        <label>name</label>
-        <form:input path="username"/>
+<c:import url="../common/admin_header.jsp"/>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="col-sm-offset-4">用户登录</h1>
+        <form:form modelAttribute="user" method="post" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-offset-2 col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-4">
+                    <form:input path="email" class="form-control"/>
+                    <form:errors path="email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-offset-2 col-sm-2 control-label">密码</label>
+                <div class="col-sm-4">
+                    <form:password path="password" class="form-control"/>
+                    <form:errors path="password"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <input type="submit" class="btn btn-primary btn-lg" role="button" value="登录"/>
+                </div>
+
+            </div>
+        </form:form>
     </div>
-    <div class="form-group">
-        <label>password</label>
-        <form:input path="password"/>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="提交">
-    </div>
-</form:form>
+</div>
+
 </body>
 </html>

@@ -12,6 +12,8 @@ import java.util.Set;
  */
 public interface UserDao {
 
+    User findByUserId(int id);
+
     User findByUserName(String userName);
 
     Set<String> findRolesByUserName(String userName);

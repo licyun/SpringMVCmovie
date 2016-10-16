@@ -5,10 +5,17 @@
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="imgUrl" column="imgurl" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List" >
-        id, username, password
+        id, username, password, email, imgurl
     </sql>
+
+    <select id="findByUserId" parameterType="int" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user where id = #{id}
+    </select>
 
     <select id="findByUserName" parameterType="String" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
@@ -31,11 +38,13 @@
     </select>
 
     <insert id="insertUser" parameterType="com.licyun.model.User">
-        INSERT INTO user (username, password) VALUES (#{username}, #{password})
+        INSERT INTO user (username, password, email, imgurl)
+        VALUES (#{username}, #{password}, #{email}, #{imgurl})
     </insert>
 
     <update id="updateUser" parameterType="com.licyun.model.User">
-        UPDATE user SET username = #{username}, password = #{password}
+        UPDATE user SET username = #{username}, password = #{password},
+        email = #{email}, imgurl = #{imgurl}
     </update>
 
     <delete id="deleteById" parameterType="int">

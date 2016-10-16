@@ -20,6 +20,10 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UserDao userdao;
 
+    public User findByUserId(int id){
+        return userdao.findByUserId(id);
+    }
+
     public User findByName(String name){
         return userdao.findByUserName(name);
     }

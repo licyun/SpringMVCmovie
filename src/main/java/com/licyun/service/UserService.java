@@ -12,6 +12,8 @@ import java.util.Set;
  */
 public interface UserService {
 
+    User findByUserId(int id);
+
     User findByName(String name);
 
     Set<String> findRolesByUserName(String userName);

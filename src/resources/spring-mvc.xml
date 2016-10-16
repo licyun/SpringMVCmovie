@@ -20,5 +20,6 @@
     <!-- 静态资源 -->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
     <mvc:resources mapping="/img/**" location="/WEB-INF/img/"/>
+    <mvc:resources mapping="/ckplayer/**" location="/WEB-INF/ckplayer/"/>
 
 </beans>

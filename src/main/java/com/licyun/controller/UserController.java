@@ -68,13 +68,19 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/list-{type}"}, method = {RequestMethod.GET})
-    public String listFree(@PathVariable String type){
+    public String listType(@PathVariable String type){
         return "list";
     }
 
     @RequestMapping(value = {"/play-{type}"}, method = {RequestMethod.GET})
-    public String listUser(@PathVariable  String type){
+    public String playType(@PathVariable  String type){
         return "play";
+    }
+
+    @RequestMapping(value = {"/ckplay-{vid}"}, method = {RequestMethod.GET})
+    public String ckPlay(@PathVariable String vid, Model model){
+        model.addAttribute("vid", vid);
+        return "ckplay";
     }
 
 }

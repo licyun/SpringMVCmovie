@@ -3,12 +3,14 @@ package com.licyun.controller;
 import com.licyun.model.User;
 import com.licyun.service.UserService;
 import com.licyun.util.UploadImg;
+import com.licyun.util.Validate;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +37,9 @@ public class UserController {
     private UploadImg uploadImg;
 
     @Autowired
+    private Validate validate;
+
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
@@ -43,9 +48,28 @@ public class UserController {
         return "user/login";
     }
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.POST})
-    public String login(@Valid User user, Model model){
-        model.addAttribute("user", new User());
-        return "user/login";
+    public String login(@Valid User user, BindingResult result,
+                        Model model, HttpSession session){
+        //验证输入格式
+        validate.commonValidate(user, result);
+        if(result.hasErrors()){
+            return "user/login";
+        }
+        //shiro验证
+        Subject subject = SecurityUtils.getSubject();
+        System.out.println("useremail"+ user.getEmail());
+        System.out.println("userpass" + user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getPassword());
+        try{
+            subject.login(token);
+            session.setAttribute("user", userService.findByEmail(user.getEmail()));
+            model.addAttribute("user", userService.findByEmail(user.getEmail()));
+            return "user/index";
+        }catch (Exception e){
+            model.addAttribute("error", "邮箱或密码错误");
+            model.addAttribute("user", new User());
+            return "admin/login";
+        }
     }
 
     @RequestMapping(value = {"/user", "/user/index"}, method = {RequestMethod.GET})
@@ -55,16 +79,32 @@ public class UserController {
 
     @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.GET})
     public String editUser(@PathVariable int uid, Model model){
-        model.addAttribute("user", new User());
+        model.addAttribute("user", userService.findByUserId(uid));
         return "user/edituser";
     }
+    @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.POST})
+    public String editUser(@Valid User user, BindingResult result,
+                           @PathVariable int uid, Model model){
+        validate.updateValidate(user, uid, result);
+        if(result.hasErrors()){
+            return "user/edituser";
+        }
+        userService.updateUserById(user, uid);
+        model.addAttribute("user", userService.findByUserId(uid));
+        return "user/index";
+    }
 
+    /**
+     * 修改图片 get
+     * @param uid
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/user/editimg-{uid}"}, method = {RequestMethod.GET})
     public String editImg(@PathVariable int uid, Model model){
         model.addAttribute("user", userService.findByUserId(uid));
         return "user/editimg";
     }
-
     /**
      * 修改图片 post
      * @param request
@@ -73,13 +113,12 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/user/edit-img", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/editimg-{uid}", method = RequestMethod.POST)
     public String uploadFileHandler(HttpServletRequest request, HttpSession session,
                                     @RequestParam("file") MultipartFile file, Model model) {
         User user = (User) session.getAttribute("user");
         // 上传目录
         String rootPath = request.getServletContext().getRealPath(IMGURL);
-        System.out.println(rootPath);
         uploadImg.uploadimg(file, user, rootPath);
         model.addAttribute("user", user);
         return "user/index";

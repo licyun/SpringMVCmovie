@@ -28,12 +28,16 @@ public class UserServiceImp implements UserService {
         return userdao.findByUserName(name);
     }
 
-    public Set<String> findRolesByUserName(String userName){
-        return userdao.findRolesByUserName(userName);
+    public User findByEmail(String email){
+        return userdao.findByEmail(email);
     }
 
-    public Set<String> findPermissionsByUserName(String userName){
-        return userdao.findPermissionsByUserName(userName);
+    public Set<String> findRolesByEmail(String email){
+        return userdao.findRolesByEmail(email);
+    }
+
+    public Set<String> findPermissionsByEmail(String email){
+        return userdao.findPermissionsByEmail(email);
     }
 
     public List<User> findAllUsers(){
@@ -48,7 +52,37 @@ public class UserServiceImp implements UserService {
         return userdao.updateUser(user);
     }
 
+    public Long updateUserById(User user, int id){
+        User sqlUser = userdao.findByUserId(id);
+        sqlUser.setEmail(user.getEmail());
+        sqlUser.setPassword(user.getPassword());
+        sqlUser.setUsername(user.getUsername());
+        return userdao.updateUser(sqlUser);
+    }
+
     public Long deleteById(int id){
         return userdao.deleteById(id);
+    }
+
+    public boolean isUserEmailExist(String email){
+        List<User> users = findAllUsers();
+        for(User user : users){
+            if(user.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isUserEmailExistExceptSelf(String sqlEmail, String localEmail){
+        List<User> users = findAllUsers();
+        for(User user : users){
+            if(!user.getEmail().equals(localEmail)){
+                if(user.getEmail().equals(sqlEmail)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

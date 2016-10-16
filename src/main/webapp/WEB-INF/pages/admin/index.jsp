@@ -25,7 +25,7 @@
         <c:forEach items="${users}" var="user">
             <tr>
                 <td>${user.id}</td>
-                <td>${user.imgurl}</td>
+                <td>${user.imgUrl}</td>
                 <td>${user.email}</td>
                 <td>${user.username}</td>
             </tr>

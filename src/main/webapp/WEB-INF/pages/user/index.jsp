@@ -25,16 +25,21 @@
     </div>
     <div class="row">
         <div class="col-sm-3 col-sm-offset-1">
-            <img src="<%=path%>/img/nopic.jpg">
+            <c:if test="${user.imgUrl == null}">
+                <img src="<%=path%>/img/nopic.jpg" width="100" height="100"/>
+            </c:if>
+            <c:if test="${user.imgUrl != null}">
+                <img src="<%=path%>/img/video/${user.imgUrl}" width="100" height="100"/>
+            </c:if>
             <div>
-                <a href="<%=path%>/user/editimg-1" class="btn btn-primary">修改头像</a>
+                <a href="<%=path%>/user/editimg-${user.id}" class="btn btn-primary">修改头像</a>
             </div>
         </div>
         <div class="col-sm-3">
             <ul class="list-group">
-                <li class="list-group-item">用户id:</li>
-                <li class="list-group-item">用户名:</li>
-                <li class="list-group-item">用户邮箱:</li>
+                <li class="list-group-item">用户id:${user.id}</li>
+                <li class="list-group-item">用户名:${user.username}</li>
+                <li class="list-group-item">用户邮箱:${user.email}</li>
                 <li class="list-group-item">
                     <a href="<%=path%>/user/edituser-1" class="btn btn-primary">修改个人信息</a>
                 </li>

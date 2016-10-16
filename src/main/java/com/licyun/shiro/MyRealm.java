@@ -27,10 +27,10 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        String username = principalCollection.getPrimaryPrincipal().toString() ;
+        String email = principalCollection.getPrimaryPrincipal().toString() ;
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo() ;
-        Set<String> roleName = userService.findRolesByUserName(username) ;
-        Set<String> permissions = userService.findPermissionsByUserName(username) ;
+        Set<String> roleName = userService.findRolesByEmail(email) ;
+        Set<String> permissions = userService.findPermissionsByEmail(email) ;
         info.setRoles(roleName);
         info.setStringPermissions(permissions);
         return info;
@@ -45,17 +45,18 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        String username = (String)token.getPrincipal();  //得到用户名
+        String email = (String)token.getPrincipal();  //得到邮箱
         String password = new String((char[])token.getCredentials()); //得到密码;
-        User user = userService.findByName(username);
+        User user = userService.findByEmail(email);
+
         if (user != null){
-            if(!username.equals(user.getUsername())){
-                throw new UnknownAccountException(); //如果用户名错误
+            if(!email.equals(user.getEmail())){
+                throw new UnknownAccountException(); //如果邮箱错误
             }
             if(!password.equals(user.getPassword())){
                 throw new IncorrectCredentialsException(); //如果密码错误
             }
-            AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, getName());
+            AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(email, password, getName());
             return authenticationInfo ;
         }else{
             return  null ;

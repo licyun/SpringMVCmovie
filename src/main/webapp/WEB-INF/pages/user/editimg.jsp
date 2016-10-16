@@ -28,7 +28,7 @@
         </c:if>
     </div>
     <div class="user-right">
-        <form method="POST" action="<%=path%>/user/editimg-{uid}" enctype="multipart/form-data" role="form">
+        <form method="POST" action="<%=path%>/user/editimg-${user.id}" enctype="multipart/form-data" role="form">
             <div class="form-group">
                 <label>目前头像</label>
                 <input type="file" name="file"><br />

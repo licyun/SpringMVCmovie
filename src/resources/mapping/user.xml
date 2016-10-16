@@ -22,15 +22,20 @@
         from user where username=#{username}
     </select>
 
-    <select id="findRolesByUserName" parameterType="String" resultType="String">
-        SELECT r.role_name from user_role r, user u
-        WHERE r.username = u.username AND u.username = #{username};
+    <select id="findByEmail" parameterType="String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user where email = #{email}
     </select>
 
-    <select id="findPermissionsByUserName" parameterType="String" resultType="String">
-      SELECT p.permission from user u, user_role r, role_permission p
-      WHERE p.role_name = r.role_name AND r.username = u.username
-       AND u.username = #{username}
+    <select id="findRolesByEmail" parameterType="String" resultType="String">
+        SELECT r.role_name from user_role r, user u
+        WHERE r.email = u.email AND u.email = #{email}
+    </select>
+
+    <select id="findPermissionsByEmail" parameterType="String" resultType="String">
+      SELECT p.permission from user u, user_role r, user_permission p
+      WHERE p.email = r.role_name AND r.email = u.email
+       AND u.email = #{email}
     </select>
 
     <select id="findAllUsers" resultMap="BaseResultMap">
@@ -39,12 +44,12 @@
 
     <insert id="insertUser" parameterType="com.licyun.model.User">
         INSERT INTO user (username, password, email, imgurl)
-        VALUES (#{username}, #{password}, #{email}, #{imgurl})
+        VALUES (#{username}, #{password}, #{email}, #{imgUrl})
     </insert>
 
     <update id="updateUser" parameterType="com.licyun.model.User">
         UPDATE user SET username = #{username}, password = #{password},
-        email = #{email}, imgurl = #{imgurl}
+        email = #{email}, imgurl = #{imgUrl} WHERE id = #{id}
     </update>
 
     <delete id="deleteById" parameterType="int">

@@ -16,9 +16,11 @@ public interface UserDao {
 
     User findByUserName(String userName);
 
-    Set<String> findRolesByUserName(String userName);
+    User findByEmail(String email);
 
-    Set<String> findPermissionsByUserName(String userName);
+    Set<String> findRolesByEmail(String email);
+
+    Set<String> findPermissionsByEmail(String email);
 
     List<User> findAllUsers();
 

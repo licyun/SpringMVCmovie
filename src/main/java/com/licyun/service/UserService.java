@@ -16,9 +16,11 @@ public interface UserService {
 
     User findByName(String name);
 
-    Set<String> findRolesByUserName(String userName);
+    User findByEmail(String email);
 
-    Set<String> findPermissionsByUserName(String userName);
+    Set<String> findRolesByEmail(String email);
+
+    Set<String> findPermissionsByEmail(String email);
 
     List<User> findAllUsers();
 
@@ -26,5 +28,11 @@ public interface UserService {
 
     Long updateUser(User user);
 
+    Long updateUserById(User user, int id);
+
     Long deleteById(int id);
+
+    boolean isUserEmailExist(String email);
+
+    boolean isUserEmailExistExceptSelf(String sqlEmail, String localEmail);
 }

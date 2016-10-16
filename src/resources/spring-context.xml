@@ -16,6 +16,16 @@
         </property>
     </bean>
 
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>message</value>
+            </list>
+        </property>
+    </bean>
+
     <import resource="spring-mybatis.xml"/>
     <import resource="spring-shiro.xml"/>
 

@@ -2,12 +2,14 @@ package com.licyun.controller;
 
 import com.licyun.model.User;
 import com.licyun.service.UserService;
+import com.licyun.util.Validate;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,9 @@ import javax.validation.Valid;
 public class AdminController {
 
     @Autowired
+    private Validate validate;
+
+    @Autowired
     private UserService userService;
 
     /**
@@ -36,18 +41,16 @@ public class AdminController {
         return "admin/login";
     }
     @RequestMapping(value = {"/admin/login"}, method = {RequestMethod.POST})
-    public String login(@Valid User user, Model model){
-        //shiro验证
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        try{
-            subject.login(token);
-            model.addAttribute("users", userService.findAllUsers());
-            return "index";
-        }catch (Exception e){
-            model.addAttribute("error", "用户名密码错误");
+    public String login(@Valid User user, BindingResult result,
+                        Model model){
+        //管理员登录验证
+        validate.adminLoginValidate(user, result);
+        if(result.hasErrors()){
             return "admin/login";
         }
+        model.addAttribute("users", userService.findAllUsers());
+        return "admin/index";
+
     }
 
     @RequestMapping(value = {"/admin/index", "/admin"}, method = {RequestMethod.GET})

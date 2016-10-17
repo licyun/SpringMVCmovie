@@ -29,7 +29,7 @@
                 <img src="<%=path%>/img/nopic.jpg" width="100" height="100"/>
             </c:if>
             <c:if test="${user.imgUrl != null}">
-                <img src="<%=path%>/img/video/${user.imgUrl}" width="100" height="100"/>
+                <img src="<%=path%>/img/user/${user.imgUrl}" width="100" height="100"/>
             </c:if>
             <div>
                 <a href="<%=path%>/user/editimg-${user.id}" class="btn btn-primary">修改头像</a>

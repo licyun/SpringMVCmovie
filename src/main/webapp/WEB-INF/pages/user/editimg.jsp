@@ -24,7 +24,7 @@
             <img src="<%=path%>/img/nopic.jpg" width="100" height="100">
         </c:if>
         <c:if test="${user.imgUrl != null}">
-            <img src="<%=path%>/img/${user.imgUrl}" width="100" height="100">
+            <img src="<%=path%>/img/user/${user.imgUrl}" width="100" height="100">
         </c:if>
     </div>
     <div class="user-right">

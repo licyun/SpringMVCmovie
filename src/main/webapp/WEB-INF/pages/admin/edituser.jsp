@@ -6,6 +6,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,21 +21,21 @@
 <div class="container">
     <form:form modelAttribute="user" method="post" class="form-horizontal" role="form">
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">name:</label>
+            <label for="name" class="col-sm-2 control-label">用户名:</label>
             <div class="col-sm-4">
                 <form:input path="username" id="name"/>
                 <form:errors path="username"/>
             </div>
         </div>
         <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">email:</label>
+            <label for="email" class="col-sm-2 control-label">邮箱:</label>
             <div class="col-sm-4">
-                <form:input path="email" id="email"/>
+                <form:input type="email" path="email" id="email"/>
                 <form:errors path="email"/>
             </div>
         </div>
         <div class="form-group">
-            <label for="passwd" class="col-sm-2 control-label">passwd:</label>
+            <label for="passwd" class="col-sm-2 control-label">密码:</label>
             <div class="col-sm-4">
                 <form:input path="password" id="passwd"/>
                 <form:errors path="password"/>

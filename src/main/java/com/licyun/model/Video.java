@@ -1,5 +1,7 @@
 package com.licyun.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -17,6 +19,8 @@ public class Video {
     String area;
     String score;
     String language;
+
+    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     Date date;
     String vid;
     String img;

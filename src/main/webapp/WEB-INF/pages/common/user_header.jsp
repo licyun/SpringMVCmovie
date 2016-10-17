@@ -17,7 +17,7 @@
             </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 用户中心</a></li>
+            <li><a href="<%=path%>/user/index"><span class="glyphicon glyphicon-user"></span> 用户中心</a></li>
         </ul>
     </div>
 </nav>

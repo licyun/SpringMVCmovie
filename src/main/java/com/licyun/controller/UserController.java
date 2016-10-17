@@ -31,7 +31,7 @@ import javax.validation.Valid;
 public class UserController {
 
     //用户头像图片路径
-    private final String IMGURL = "/WEB-INF/img";
+    private final String IMGURL = "/WEB-INF/img/user";
 
     @Autowired
     private UploadImg uploadImg;
@@ -43,7 +43,12 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
-    public String login(Model model){
+    public String login(Model model, HttpSession session,
+                        HttpServletRequest request){
+        User sessionUser = (User)session.getAttribute("user");
+        if(sessionUser != null){
+            return "redirect:"+request.getContextPath()+"/user/index";
+        }
         model.addAttribute("user", new User());
         return "user/login";
     }
@@ -84,14 +89,14 @@ public class UserController {
     }
     @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.POST})
     public String editUser(@Valid User user, BindingResult result,
-                           @PathVariable int uid, Model model){
+                           @PathVariable int uid, Model model,
+                           HttpServletRequest request){
         validate.updateValidate(user, uid, result);
         if(result.hasErrors()){
             return "user/edituser";
         }
         userService.updateUserById(user, uid);
-        model.addAttribute("user", userService.findByUserId(uid));
-        return "user/index";
+        return "redirect:"+request.getContextPath()+"/user/index";
     }
 
     /**

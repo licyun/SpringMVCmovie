@@ -20,36 +20,13 @@
 <c:import url="../common/admin_header.jsp"/>
 <div class="container">
     <form:form modelAttribute="video" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="${video.id}"/>
         <div class="col-sm-4 col-sm-offset-1">
             <div class="form-group">
                 <label for="name" class="col-sm-3 control-label">影片名:</label>
                 <div class="col-sm-4">
-                    <form:input path="name" placeholder="必填"/>
+                    <form:input path="name"/>
                     <form:errors path="name"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="type" class="col-sm-3 control-label">剧情类型:</label>
-                <div class="col-sm-4">
-                    <form:input path="type" placeholder="必填"/>
-                    <form:errors path="type"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="playType" class="col-sm-3 control-label">播放类型:</label>
-                <div class="col-sm-4">
-                    <input type="radio" name="playType" value="free"/>free
-                    <input type="radio" name="playType" value="user"/>user
-                    <input type="radio" name="playType" value="vip"/>vip
-                    <input type="radio" name="playType" value="vipplus"/>vipplus
-                    <form:errors path="playType"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="score" class="col-sm-3 control-label">评分:</label>
-                <div class="col-sm-4">
-                    <form:input type="number" min="1" max="10" path="score" value="0"/>
-                    <form:errors path="score"/>
                 </div>
             </div>
             <div class="form-group">
@@ -67,10 +44,24 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">剧情类型:</label>
+                <div class="col-sm-4">
+                    <form:input path="type"/>
+                    <form:errors path="type"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="area" class="col-sm-3 control-label">地区:</label>
                 <div class="col-sm-4">
                     <form:input path="area"/>
                     <form:errors path="area"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="score" class="col-sm-3 control-label">评分:</label>
+                <div class="col-sm-4">
+                    <form:input path="score"/>
+                    <form:errors path="score"/>
                 </div>
             </div>
             <div class="form-group">
@@ -85,6 +76,13 @@
                 <div class="col-sm-4">
                     <form:input type="date" path="date"/>
                     <form:errors path="date"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="playType" class="col-sm-3 control-label">播放类型:</label>
+                <div class="col-sm-4">
+                    <form:input path="playType"/>
+                    <form:errors path="playType"/>
                 </div>
             </div>
         </div>
@@ -111,7 +109,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" class="col-sm-offset-1 btn-default btn" value="添加视频">
+                <input type="submit" class="col-sm-offset-1 btn-default btn" value="确认修改">
             </div>
         </div>
     </form:form>

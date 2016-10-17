@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by 李呈云
@@ -30,14 +32,10 @@ import javax.validation.Valid;
 @Controller
 public class AdminController {
 
-    //视频图片路径
-    private final String IMGURL = "/WEB-INF/img/video";
 
     @Autowired
     private Validate validate;
 
-    @Autowired
-    private UploadImg uploadImg;
 
     @Autowired
     private UserService userService;
@@ -51,18 +49,24 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = {"/admin/login"}, method = {RequestMethod.GET})
-    public String login(Model model) {
+    public String login(Model model, HttpSession session) {
+        User sessionUser = (User)session.getAttribute("admin");
+        if(sessionUser != null){
+            model.addAttribute("users", userService.findAllUsers());
+            return "admin/index";
+        }
         model.addAttribute("user", new User());
         return "admin/login";
     }
     @RequestMapping(value = {"/admin/login"}, method = {RequestMethod.POST})
     public String login(@Valid User user, BindingResult result,
-                        Model model){
+                        Model model, HttpSession session){
         //管理员登录验证
         validate.adminLoginValidate(user, result);
         if(result.hasErrors()){
             return "admin/login";
         }
+        session.setAttribute("admin", userService.findByEmail(user.getEmail()));
         model.addAttribute("users", userService.findAllUsers());
         return "admin/index";
 
@@ -74,26 +78,32 @@ public class AdminController {
         return "admin/index";
     }
 
-    @RequestMapping(value = {"/admin/addvideo"}, method = {RequestMethod.GET})
-    public String addVideo(Model model) {
-        model.addAttribute("video", new Video());
-        return "admin/addvideo";
-    }
-    @RequestMapping(value = {"/admin/addvideo"}, method = {RequestMethod.POST})
-    public String addVideo(@Valid Video video, BindingResult result,
-                           @RequestParam("file") MultipartFile file,
-                           Model model, HttpServletRequest request) {
-        // 上传目录
-        String rootPath = request.getServletContext().getRealPath(IMGURL);
-        video.setImg(uploadImg.uploadVideoImg(file, video, rootPath));
-        videoService.updateVideo(video);
-        return "redirect:admin/index";
+    @RequestMapping(value = {"/admin/videos"}, method = {RequestMethod.GET})
+    public String video(Model model) {
+        model.addAttribute("videos", videoService.findAllVideos());
+        return "admin/videos";
     }
 
     @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.GET})
     public String editUser(@PathVariable int uid, Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", userService.findByUserId(uid));
         return "admin/edituser";
+    }
+    @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.POST})
+    public String editUser(@Valid User user, BindingResult result,
+                           @PathVariable int uid, HttpServletRequest request) {
+        validate.updateValidate(user, uid, result);
+        if(result.hasErrors()){
+            return "user/edituser";
+        }
+        userService.updateUserById(user, uid);
+        return "redirect:"+request.getContextPath()+"/admin/index";
+    }
+
+    @RequestMapping(value = {"/admin/deleteuser-{uid}"}, method = {RequestMethod.GET})
+    public String deleteUser(@PathVariable int uid, HttpServletRequest request) {
+        userService.deleteById(uid);
+        return "redirect:"+request.getContextPath()+"/admin/index";
     }
 
     @RequestMapping(value = {"/admin/editimg-{uid}"}, method = {RequestMethod.GET})

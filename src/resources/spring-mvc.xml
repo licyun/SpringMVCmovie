@@ -31,4 +31,15 @@
         <property name="maxUploadSize" value="5242880"></property>
     </bean>
 
+    <!-- 管理员登录拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 管理员登录拦截 -->
+            <mvc:mapping path="/admin"/>
+            <mvc:mapping path="/admin/**"/>
+            <mvc:exclude-mapping path="/admin/login"/>
+            <bean class="com.licyun.interceptor.AdminInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

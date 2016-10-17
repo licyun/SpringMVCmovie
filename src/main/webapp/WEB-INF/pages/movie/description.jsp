@@ -24,10 +24,15 @@
 
     <div class="row">
         <div class="col-sm-2 col-sm-offset-1">
-            <img src="<%=path%>/img/video/${video.img}" class="img-responsive" width="160" height="200"/>
-            <div class="caption">
+            <c:if test="${video.img != null}">
+                <img src="<%=path%>/img/video/${video.img}" class="img-responsive" width="160" height="200"/>
+            </c:if>
+            <c:if test="${video.img == null }">
+                <img src="<%=path%>/img/load.png" class="img-responsive" width="160" height="200"/>
+            </c:if>
+                <div class="caption">
                 <h3>
-                    <a href="<%=path%>/play/${type}-${id}" class="btn btn-primary" role="button">立即播放</a>
+                    <a href="<%=path%>/play/${video.playType}-${video.id}" class="btn btn-primary" role="button">立即播放</a>
                 </h3>
             </div>
         </div>

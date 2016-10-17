@@ -45,6 +45,7 @@
         UPDATE video SET name = #{name}, director = #{director}, starring = #{starring},
         type = #{type}, area = #{area}, score = #{score}, language = #{language},
         date = #{date}, vid = #{vid}, img = #{img}, playtype = #{playType}, description = #{description}
+        WHERE id = #{id}
     </update>
 
     <delete id="deleteVideoById" parameterType="com.licyun.model.Video">

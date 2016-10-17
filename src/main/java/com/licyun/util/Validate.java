@@ -1,6 +1,7 @@
 package com.licyun.util;
 
 import com.licyun.model.User;
+import com.licyun.model.Video;
 import com.licyun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -115,5 +116,6 @@ public class Validate {
             }
         }
     }
+
 
 }

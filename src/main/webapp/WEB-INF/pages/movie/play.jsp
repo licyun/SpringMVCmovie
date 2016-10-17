@@ -20,13 +20,13 @@
 <c:import url="../common/header.jsp"/>
     <div class="container">
         <div class="page-header">
-            <h1>湄公河行动
-                <small>动作片</small>
+            <h1>${video.name}
+                <small>${video.type}</small>
             </h1>
         </div>
 
         <div>
-           <iframe src="/ckplay/free-XMTc1NzA5NDE4MA==" width="100%" height="350"></iframe>
+           <iframe src="/ckplay/${video.playType}-${video.vid}" width="100%" height="350"></iframe>
         </div>
 
     </div>

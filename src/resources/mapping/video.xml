@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.licyun.dao.VideoDao" >
+    <resultMap id="BaseResultMap" type="com.licyun.model.Video" >
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="director" column="director" jdbcType="VARCHAR"/>
+        <result property="starring" column="starring" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="BIGINT"/>
+        <result property="language" column="language" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="DATE"/>
+        <result property="vid" column="vid" jdbcType="VARCHAR"/>
+        <result property="img" column="img" jdbcType="VARCHAR"/>
+        <result property="playType" column="playtype" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, name, director, starring, type, area, score,
+        language, date, vid, img, playtype, description
+    </sql>
+
+    <select id="findById" parameterType="int" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from video where id = #{id}
+    </select>
+
+    <select id="findByName" parameterType="String" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM video WHERE name = #{name}
+    </select>
+
+    <select id="findAllVideos" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM video
+    </select>
+
+    <insert id="insertVideo" parameterType="com.licyun.model.Video">
+        INSERT INTO video(name, director, starring, type, area, score,
+        language, date, vid, img, playtype, description)
+        VALUES (#{name}, #{director}, #{starring}, #{type}, #{area}, #{score},
+        #{language}, #{date}, #{vid}, #{img}, #{playType}, #{description})
+    </insert>
+
+    <update id="updateVideo" parameterType="com.licyun.model.Video">
+        UPDATE video SET name = #{name}, director = #{director}, starring = #{starring},
+        type = #{type}, area = #{area}, score = #{score}, language = #{language},
+        date = #{date}, vid = #{vid}, img = #{img}, playtype = #{playType}, description = #{description}
+    </update>
+
+    <delete id="deleteVideoById" parameterType="com.licyun.model.Video">
+        DELETE FROM video WHERE id = #{id}
+    </delete>
+
+</mapper>

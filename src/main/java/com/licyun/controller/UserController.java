@@ -30,7 +30,7 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
-    //图片路径
+    //用户头像图片路径
     private final String IMGURL = "/WEB-INF/img";
 
     @Autowired
@@ -119,7 +119,10 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         // 上传目录
         String rootPath = request.getServletContext().getRealPath(IMGURL);
-        uploadImg.uploadimg(file, user, rootPath);
+        // 上传文件并赋值给user
+        user.setImgUrl( uploadImg.uploadUserImg(file, user, rootPath) );
+        // 更新user的imgURl
+        userService.updateUser(user);
         model.addAttribute("user", user);
         return "user/index";
     }

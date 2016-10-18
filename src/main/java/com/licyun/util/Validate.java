@@ -51,7 +51,7 @@ public class Validate {
         commonValidate(user, errors);
         //判断name格式是否正确
         if(user.getUsername().length() < 6){
-            errors.rejectValue("name", "username.valid");
+            errors.rejectValue("username", "username.valid");
         }
         //判断邮箱是否已经存在
         if (userService.isUserEmailExist(user.getEmail())) {
@@ -76,7 +76,7 @@ public class Validate {
         }
     }
 
-    //登录验证
+    //管理员登录验证
     public void adminLoginValidate(User user, Errors errors){
         commonValidate(user, errors);
         if(!errors.hasErrors()){

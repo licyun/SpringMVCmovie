@@ -30,7 +30,7 @@
         <div class="form-group">
             <label for="email" class="col-sm-2 control-label">邮箱:</label>
             <div class="col-sm-4">
-                <form:input path="email" id="email"/>
+                <form:input type="email" path="email" id="email"/>
                 <form:errors path="email"/>
             </div>
         </div>

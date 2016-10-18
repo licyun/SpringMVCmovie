@@ -40,8 +40,8 @@
                 <td>${user.id}</td>
                 <td>${user.email}</td>
                 <td>${user.username}</td>
-                <td><a href="<%=path%>/admin/edituser-${user.id}">编辑</a></td>
-                <td><a href="<%=path%>/admin/deleteuser-${user.id}">删除</a></td>
+                <td><a class="btn btn-primary" role="button" href="<%=path%>/admin/edituser-${user.id}">编辑</a></td>
+                <td><a class="btn btn-danger" role="button" href="<%=path%>/admin/deleteuser-${user.id}">删除</a></td>
             </tr>
         </c:forEach>
     </table>

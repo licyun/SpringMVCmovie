@@ -15,6 +15,8 @@ public interface VideoDao {
 
     Video findByName(String name);
 
+    List<Video> findVideosByPlayType(String type);
+
     List<Video> findAllVideos();
 
     Long insertVideo(Video video);

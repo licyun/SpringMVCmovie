@@ -17,82 +17,47 @@
     <c:import url="../common/inc.jsp"/>
 </head>
 <body>
-
 <c:import url="../common/header.jsp"/>
-
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="<%=path%>/img/video/p2380677316.jpg" width="230" height="200"
-                     alt="通用的占位符缩略图">
-                <div class="caption">
-                    <h3>湄公河行动</h3>
-                    <p>张涵予 彭于晏 孙淳 陈宝国</p>
-                    <p>
-                        <a href="<%=path%>/description/free-1" class="btn btn-primary" role="button">
-                            查看影片
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="<%=path%>/img/video/p2380681527.jpg" width="230" height="200"
-                     alt="通用的占位符缩略图">
-                <div class="caption">
-                    <h3>缩略图标签</h3>
-                    <p>一些示例文本。一些示例文本。</p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button">
-                            按钮
-                        </a>
-                        <a href="#" class="btn btn-default" role="button">
-                            按钮
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="<%=path%>/img/video/p2355502299.jpg" width="230" height="200"
-                     alt="通用的占位符缩略图">
-                <div class="caption">
-                    <h3>缩略图标签</h3>
-                    <p>一些示例文本。一些示例文本。</p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button">
-                            按钮
-                        </a>
-                        <a href="#" class="btn btn-default" role="button">
-                            按钮
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="<%=path%>/img/kittens.jpg" width="230" height="200"
-                     alt="通用的占位符缩略图">
-                <div class="caption">
-                    <h3>缩略图标签</h3>
-                    <p>一些示例文本。一些示例文本。</p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button">
-                            按钮
-                        </a>
-                        <a href="#" class="btn btn-default" role="button">
-                            按钮
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
+    <div class="page-header">
+        <h1>${type}
+            <small>
+                <c:if test="${type == 'free'}">
+                    免费影片可直接观看
+                </c:if>
+                <c:if test="${type == 'user'}">
+                    用户影片需登录观看
+                </c:if>
+                <c:if test="${type == 'vip'}">
+                    会员影片需开通VIP观看
+                </c:if>
+                <c:if test="${type == 'vipplus'}">
+                    黄金VIP需要开通黄金VIP权限
+                </c:if>
+            </small>
+        </h1>
     </div>
+    <div>
+        <c:forEach items="${videos}" var="video">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="<%=path%>/img/video/${video.img}" width="100%" height="250" alt="${video.name}">
+                    <div class="caption">
+                        <h3 class="nowrap">${video.name}</h3>
+                        <p class="nowrap">${video.starring}</p>
+                        <p>
+                            <a href="<%=path%>/description/${type}-${video.id}" class="btn btn-primary" role="button">
+                                查看影片
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+
 </div>
+
 
 </body>
 </html>

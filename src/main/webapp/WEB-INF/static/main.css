@@ -1,0 +1,11 @@
+.nowrap{
+    overflow:hidden;
+    white-space:nowrap;
+}
+.list-video{
+    height: 400px;
+    border: 1px solid black;
+}
+.list-img{
+
+}

@@ -42,6 +42,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = {"/user/register"}, method = {RequestMethod.GET})
+    public String register(Model model){
+        model.addAttribute("user", new User());
+        return "user/register";
+    }
+    @RequestMapping(value = {"/user/register"}, method = {RequestMethod.POST})
+    public String register(@Valid User user, BindingResult result,
+                           Model model){
+        validate.registValidate(user, result);
+        if(result.hasErrors()){
+            return "user/register";
+        }
+        userService.insertUser(user);
+        model.addAttribute("user", userService.findByEmail(user.getEmail()));
+        return "user/index";
+    }
+
+
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
     public String login(Model model, HttpSession session,
                         HttpServletRequest request){
@@ -62,8 +80,6 @@ public class UserController {
         }
         //shiro验证
         Subject subject = SecurityUtils.getSubject();
-        System.out.println("useremail"+ user.getEmail());
-        System.out.println("userpass" + user.getPassword());
         UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getPassword());
         try{
             subject.login(token);

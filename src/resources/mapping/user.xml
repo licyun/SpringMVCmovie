@@ -33,9 +33,8 @@
     </select>
 
     <select id="findPermissionsByEmail" parameterType="String" resultType="String">
-      SELECT p.permission from user u, user_role r, user_permission p
-      WHERE p.email = r.role_name AND r.email = u.email
-       AND u.email = #{email}
+      SELECT p.permission from user_permission p
+      WHERE p.email = #{email}
     </select>
 
     <select id="findAllUsers" resultMap="BaseResultMap">

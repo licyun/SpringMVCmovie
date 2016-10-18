@@ -30,18 +30,18 @@
         <c:forEach items="${videos}" var="video">
             <tr>
                 <td>
-                    <c:if test="${video.img != null }">
+                    <c:if test="${!empty video.img}">
                         <img src="<%=path%>/img/video/${video.img}" width="40" height="40">
                     </c:if>
-                    <c:if test=" ${video.img == null }">
-                        <img src="<%=path%>/img/load.jpg">
+                    <c:if test="${empty video.img }">
+                        <img src="<%=path%>/img/load.png" width="40" height="40">
                     </c:if>
                 </td>
                 <td>${video.id}</td>
                 <td>${video.name}</td>
                 <td>${video.type}</td>
-                <td><a href="<%=path%>/admin/editvideo-${video.id}">编辑</a></td>
-                <td><a href="<%=path%>/admin/deletevideo-${video.id}">删除</a></td>
+                <td><a class="btn btn-primary" role="button" href="<%=path%>/admin/editvideo-${video.id}">编辑</a></td>
+                <td><a class="btn btn-danger" role="button" href="<%=path%>/admin/deletevideo-${video.id}">删除</a></td>
             </tr>
         </c:forEach>
     </table>

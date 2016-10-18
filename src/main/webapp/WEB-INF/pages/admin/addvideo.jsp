@@ -28,17 +28,11 @@
                     <form:errors path="name"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="type" class="col-sm-3 control-label">剧情类型:</label>
-                <div class="col-sm-4">
-                    <form:input path="type" placeholder="必填"/>
-                    <form:errors path="type"/>
-                </div>
-            </div>
+
             <div class="form-group">
                 <label for="playType" class="col-sm-3 control-label">播放类型:</label>
                 <div class="col-sm-4">
-                    <input type="radio" name="playType" value="free"/>free
+                    <input type="radio" name="playType" value="free" checked/>free
                     <input type="radio" name="playType" value="user"/>user
                     <input type="radio" name="playType" value="vip"/>vip
                     <input type="radio" name="playType" value="vipplus"/>vipplus
@@ -50,6 +44,13 @@
                 <div class="col-sm-4">
                     <form:input type="number" min="1" max="10" path="score" value="0"/>
                     <form:errors path="score"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">剧情类型:</label>
+                <div class="col-sm-4">
+                    <form:input path="type"/>
+                    <form:errors path="type"/>
                 </div>
             </div>
             <div class="form-group">

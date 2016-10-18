@@ -45,13 +45,15 @@ public class VideoController {
      */
 
     @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.GET})
-    public String list(){
+    public String list(Model model){
+        model.addAttribute("videos", videoService.findAllVideos());
         return "/index";
     }
 
     @RequestMapping(value = {"/list/{type}"}, method = {RequestMethod.GET})
     public String list(@PathVariable String type, Model model){
         model.addAttribute("type", type);
+        model.addAttribute("videos", videoService.findVideosByPlayType(type));
         return "movie/list";
     }
 
@@ -91,12 +93,10 @@ public class VideoController {
             return "admin/addvideo";
         }
         // 上传目录
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("date"+video.getDate());
         String rootPath = request.getServletContext().getRealPath(IMGURL);
         video.setImg(uploadImg.uploadVideoImg(file, video, rootPath));
         videoService.insertVideo(video);
-        return "redirect:"+request.getContextPath()+"/admin/index";
+        return "redirect:"+request.getContextPath()+"/admin/videos";
     }
 
     //edit video
@@ -109,11 +109,9 @@ public class VideoController {
     public String editVideo(@Valid Video video, @PathVariable int id,
                             @RequestParam("file") MultipartFile file,
                             HttpServletRequest request ) {
-        // 上传目录
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("date"+video.getDate());
-        video.setImg( videoService.findById(id).getImg() );
-        if( file != null){
+        if( file == null || file.isEmpty()){
+            video.setImg( videoService.findById(id).getImg() );
+        }else {
             String rootPath = request.getServletContext().getRealPath(IMGURL);
             video.setImg(uploadImg.uploadVideoImg(file, video, rootPath));
         }
@@ -124,7 +122,8 @@ public class VideoController {
     //delete video
     @RequestMapping(value = {"/admin/deletevideo-{id}"}, method = {RequestMethod.GET})
     public String deleteVideo(@PathVariable int id, HttpServletRequest request) {
-        videoService.deleteVideoById(id);
+        String rootPath = request.getServletContext().getRealPath(IMGURL);
+        videoService.deleteVideoById(id, rootPath);
         return "redirect:"+request.getContextPath()+"/admin/videos";
     }
 }

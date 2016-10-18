@@ -5,6 +5,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     String path = request.getContextPath();
 %>
@@ -19,8 +20,20 @@
 <c:import url="../common/user_header.jsp"/>
 <div class="container">
     <div class="page-header">
-        <h1>您还不是vip用户
-            <small>开通vip请联系管理员</small>
+        <h1>
+            <shiro:hasRole name="vip">
+                用户[<shiro:principal/>]是VIP用户,能观看vip电影<br/>
+            </shiro:hasRole>
+            <shiro:lacksRole name="vip">
+                用户[<shiro:principal/>]不是vip用户,不能观看vip电影<br/>
+            </shiro:lacksRole>
+            <shiro:hasPermission name="user:vipplus">
+                用户[<shiro:principal/>]拥有点播权限,能观看点播电影<br/>
+            </shiro:hasPermission>
+            <shiro:lacksPermission name="user:vipplus">
+                用户[<shiro:principal/>]没有点播权限,不能观看点播电影<br/>
+            </shiro:lacksPermission>
+            <small>开通权限请联系管理员</small>
         </h1>
     </div>
     <div class="row">

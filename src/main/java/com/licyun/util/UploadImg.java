@@ -61,7 +61,9 @@ public class UploadImg {
             uploadRootDir.mkdirs();
         }
         String name = file.getOriginalFilename();
-        if(name != ""){
+        if(name == null || name.isEmpty()){
+
+        }else{
             String imgurl = rootPath +  File.separator + video.getImg();
             File imgFile = new File(imgurl);
             imgFile.delete();

@@ -8,6 +8,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,9 +32,12 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String email = principalCollection.getPrimaryPrincipal().toString() ;
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo() ;
-        Set<String> roleName = userService.findRolesByEmail(email) ;
-        Set<String> permissions = userService.findPermissionsByEmail(email) ;
-        info.setRoles(roleName);
+        //根据email查询用户角色
+        Set<String> roles = userService.findRolesByEmail(email) ;
+        //根据email查询用户权限
+        Set<String> permissions = userService.findPermissionsByEmail(email);
+        //将用户角色和权限分别赋值给info，便于shiro拦截链处理
+        info.setRoles(roles);
         info.setStringPermissions(permissions);
         return info;
     }

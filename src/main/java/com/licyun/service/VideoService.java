@@ -15,11 +15,13 @@ public interface VideoService {
 
     Video findByName(String name);
 
+    List<Video> findVideosByPlayType(String type);
+
     List<Video> findAllVideos();
 
     Long insertVideo(Video video);
 
     Long updateVideo(Video video);
 
-    Long deleteVideoById(int id);
+    Long deleteVideoById(int id, String rootPath);
 }

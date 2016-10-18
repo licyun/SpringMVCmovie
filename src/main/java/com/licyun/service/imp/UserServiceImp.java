@@ -6,6 +6,7 @@ import com.licyun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,11 +34,35 @@ public class UserServiceImp implements UserService {
     }
 
     public Set<String> findRolesByEmail(String email){
-        return userdao.findRolesByEmail(email);
+        //查询到带逗号分隔的角色信息
+        String strRoles = userdao.findRolesByEmail(email);
+        Set<String> roles = new HashSet<String>();
+        //判断是否带逗号分隔，否则会出现空指针异常
+        if(strRoles.contains(",")){
+            String[] arrRoles = strRoles.split(",");
+            for(int i = 0; i < arrRoles.length; i ++){
+                roles.add(arrRoles[i]);
+            }
+        }else {
+            roles.add(strRoles);
+        }
+        return roles;
     }
 
     public Set<String> findPermissionsByEmail(String email){
-        return userdao.findPermissionsByEmail(email);
+        //查询到带逗号分隔的角色信息
+        String strPermissions = userdao.findPermissionsByEmail(email);
+        Set<String> permissions = new HashSet<String>();
+        //判断是否带逗号分隔，否则会出现空指针异常
+        if(strPermissions.contains(",")){
+            String[] arrPermissions = strPermissions.split(",");
+            for(int i = 0; i < arrPermissions.length; i ++){
+                permissions.add(arrPermissions[i]);
+            }
+        }else {
+            permissions.add(strPermissions);
+        }
+        return permissions;
     }
 
     public List<User> findAllUsers(){
@@ -45,6 +70,8 @@ public class UserServiceImp implements UserService {
     }
 
     public Long insertUser(User user){
+
+
         return userdao.insertUser(user);
     }
 

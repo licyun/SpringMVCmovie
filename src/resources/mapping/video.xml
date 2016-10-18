@@ -30,6 +30,11 @@
         SELECT <include refid="Base_Column_List"/> FROM video WHERE name = #{name}
     </select>
 
+    <select id="findVideosByPlayType" parameterType="String" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM video
+        WHERE playtype = #{playType}
+    </select>
+
     <select id="findAllVideos" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List"/> FROM video
     </select>

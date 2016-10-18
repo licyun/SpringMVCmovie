@@ -20,7 +20,7 @@
 <c:import url="../common/admin_header.jsp"/>
 <div class="jumbotron">
     <div class="container">
-        <h1 class="col-sm-offset-4">用户登录</h1>
+        <h1 class="col-sm-offset-4">管理员登录</h1>
         <form:form modelAttribute="user" method="post" class="form-horizontal" role="form">
             <div class="form-group">
                 <label class="col-sm-offset-2 col-sm-2 control-label">邮箱</label>

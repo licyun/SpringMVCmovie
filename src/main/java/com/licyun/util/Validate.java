@@ -89,7 +89,7 @@ public class Validate {
             if(sqlUser != null){
                 if(sqlUser.getPassword().equals(user.getPassword())){
                     //判断用户是否有管理员权限
-                    if(userRoleService.findAdminByEmail(user.getEmail())){
+                    if(userRoleService.findIsAdminByEmail(user.getEmail())){
 
                     }else{
                         errors.rejectValue("email", "useremail.notexist");

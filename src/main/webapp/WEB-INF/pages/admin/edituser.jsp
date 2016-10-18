@@ -62,6 +62,16 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="admin" class="col-sm-2 control-label">是否管理员:</label>
+            <div class="col-sm-4">
+                <input type="radio" name="admin" value="0"
+                       <c:if test="${userPR.admin == 0}">checked</c:if> >普通用户
+                <input type="radio" name="admin" value="1"
+                       <c:if test="${userPR.admin == 1}">checked</c:if> >管理员
+                <form:errors path="admin"/>
+            </div>
+        </div>
+        <div class="form-group">
             <input type="submit" class="col-sm-offset-2 btn-default btn" value="提交修改">
         </div>
     </form:form>

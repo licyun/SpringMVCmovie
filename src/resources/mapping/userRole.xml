@@ -13,13 +13,13 @@
     </select>
 
     <insert id="insertRoles" parameterType="com.licyun.model.UserRole">
-        INSERT INTO user_role (email, role_name )
-        VALUES (#{email}, #{roleName})
+        INSERT INTO user_role (email, role_name, admin )
+        VALUES (#{email}, #{roleName}, #{admin})
     </insert>
 
     <update id="updateRoles" parameterType="com.licyun.model.UserRole">
-        UPDATE user_role SET email = #{email}, role_name = #{roleName}
-        WHERE email = #{email}
+        UPDATE user_role SET email = #{email}, role_name = #{roleName},
+        admin = #{admin} WHERE email = #{email}
     </update>
 
     <delete id="deleteRolesByEmail" parameterType="String">

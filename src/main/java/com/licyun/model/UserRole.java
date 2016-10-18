@@ -10,7 +10,7 @@ public class UserRole {
     int id;
     String email;
     String roleName;
-    String admin;
+    int admin;
 
     public int getId() {
         return id;
@@ -36,11 +36,11 @@ public class UserRole {
         this.roleName = roleName;
     }
 
-    public String getAdmin() {
+    public int getAdmin() {
         return admin;
     }
 
-    public void setAdmin(String admin) {
+    public void setAdmin(int admin) {
         this.admin = admin;
     }
 }

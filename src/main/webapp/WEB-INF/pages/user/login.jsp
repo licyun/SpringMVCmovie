@@ -18,13 +18,7 @@
     <c:import url="../common/inc.jsp"/>
 </head>
 <body>
-<c:import url="../common/user_header.jsp"/>
-<div class="page-header">
-    <h1>
-        游客只能观看免费视频
-        <small>更多视频请登录后操作</small>
-    </h1>
-</div>
+<c:import url="../common/header.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <h1 class="col-sm-offset-4">用户登录</h1>

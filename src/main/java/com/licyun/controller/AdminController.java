@@ -37,7 +37,6 @@ public class AdminController {
     @Autowired
     private Validate validate;
 
-
     @Autowired
     private UserService userService;
 
@@ -79,6 +78,13 @@ public class AdminController {
 
     }
 
+    //退出登录
+    @RequestMapping(value = {"/admin/loginout"}, method = {RequestMethod.GET})
+    public String loginout(HttpSession session, HttpServletRequest request){
+        session.invalidate();
+        return "redirect:"+request.getContextPath()+"/admin/login";
+    }
+
     @RequestMapping(value = {"/admin/index", "/admin"}, method = {RequestMethod.GET})
     public String admin(Model model) {
         model.addAttribute("users", userService.findAllUsers());
@@ -93,12 +99,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.GET})
     public String editUser(@PathVariable int uid, Model model) {
-        //获取id对应的email
-        String email = userService.findByUserId(uid).getEmail();
-        User user = userService.findByUserId(uid);
-        //获取拼接对象userPR
-        UserPR userPR = new UserPR(email, user.getUsername(), user.getPassword(),
-                userRoleService.findRolesByEmail(email), userPermissionService.findPermissionsByEmail(email));
+        UserPR userPR = userService.findUserPRById(uid);
         model.addAttribute("userPR", userPR);
         return "admin/edituser";
     }
@@ -106,19 +107,18 @@ public class AdminController {
     public String editUser(@Valid UserPR userPR, BindingResult result,
                            @PathVariable int uid, HttpServletRequest request) {
         //从userPR中分离出user
-        User validUser = new User(userPR.getName(), userPR.getPassword(), userPR.getEmail());
-        validate.updateValidate(validUser, uid, result);
+        User user = new User(userPR.getName(), userPR.getPassword(), userPR.getEmail());
+        validate.updateValidate(user, uid, result);
         if(result.hasErrors()){
             return "user/edituser";
         }
         //获取id对应的email
         String email = userService.findByUserId(uid).getEmail();
         //插入role
-        userRoleService.updateRoles(email, userPR.getUserRole());
+        userRoleService.updateRoles(email, userPR.getUserRole(), userPR.getAdmin());
         //插入permission
         userPermissionService.updatePermissions(email, userPR.getUserPermission());
         //插入user
-        User user = userService.findByUserId(uid);
         userService.updateUserById(user, uid);
         return "redirect:"+request.getContextPath()+"/admin/index";
     }

@@ -30,6 +30,7 @@
                 /=anon
                 /index=anon
                 /user/login = anon
+                /user/loginout = logout
                 /user/register = anon
                 <!-- roles表示需要指定角色访问 -->
                 /user/** = authc

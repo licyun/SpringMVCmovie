@@ -17,23 +17,23 @@
     <c:import url="../common/inc.jsp"/>
 </head>
 <body>
-<c:import url="../common/user_header.jsp"/>
+<c:import url="../common/header.jsp"/>
 <div class="container">
     <div class="page-header">
         <h1>
             <shiro:hasRole name="vip">
-                用户[<shiro:principal/>]是VIP用户,能观看vip电影<br/>
+                您是VIP用户,能观看vip电影<br/>
             </shiro:hasRole>
             <shiro:lacksRole name="vip">
-                用户[<shiro:principal/>]不是vip用户,不能观看vip电影<br/>
+                您不是vip用户,不能观看vip电影<br/>
             </shiro:lacksRole>
             <shiro:hasPermission name="user:vipplus">
-                用户[<shiro:principal/>]拥有点播权限,能观看点播电影<br/>
+                您拥有点播权限,能观看点播电影<br/>
             </shiro:hasPermission>
             <shiro:lacksPermission name="user:vipplus">
-                用户[<shiro:principal/>]没有点播权限,不能观看点播电影<br/>
+                您没有点播权限,不能观看点播电影<br/>
             </shiro:lacksPermission>
-            <small>开通权限请联系管理员</small>
+            <small>开通权限请联系管理员QQ:849528477</small>
         </h1>
     </div>
     <div class="row">
@@ -54,14 +54,11 @@
                 <li class="list-group-item">用户名:${user.username}</li>
                 <li class="list-group-item">用户邮箱:${user.email}</li>
                 <li class="list-group-item">
-                    <a href="<%=path%>/user/edituser-1" class="btn btn-primary">修改个人信息</a>
+                    <a href="<%=path%>/user/edituser-${user.id}" class="btn btn-primary">修改个人信息</a>
                 </li>
             </ul>
         </div>
     </div>
-
-
-
 </div>
 </body>
 </html>

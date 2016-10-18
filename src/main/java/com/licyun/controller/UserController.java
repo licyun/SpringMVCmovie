@@ -56,7 +56,7 @@ public class UserController {
         }
         userService.insertUser(user);
         model.addAttribute("user", userService.findByEmail(user.getEmail()));
-        return "user/index";
+        return "user/login";
     }
 
 

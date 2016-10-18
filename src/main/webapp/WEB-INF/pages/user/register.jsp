@@ -17,7 +17,7 @@
     <c:import url="../common/inc.jsp"/>
 </head>
 <body>
-<c:import url="../common/user_header.jsp"/>
+<c:import url="../common/header.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <h1 class="col-sm-offset-4">用户注册</h1>

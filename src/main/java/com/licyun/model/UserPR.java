@@ -12,16 +12,18 @@ public class UserPR {
     String password;
     String userRole;
     String userPermission;
+    int admin;
 
     public UserPR() {
     }
 
-    public UserPR(String email, String name, String password, String userRole, String userPermission) {
+    public UserPR(String email, String name, String password, String userRole, String userPermission, int admin) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.userRole = userRole;
         this.userPermission = userPermission;
+        this.admin = admin;
     }
 
     public String getEmail() {
@@ -62,5 +64,13 @@ public class UserPR {
 
     public void setUserPermission(String userPermission) {
         this.userPermission = userPermission;
+    }
+
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
     }
 }

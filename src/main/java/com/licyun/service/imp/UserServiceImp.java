@@ -4,6 +4,7 @@ import com.licyun.dao.UserDao;
 import com.licyun.dao.UserPermissionDao;
 import com.licyun.dao.UserRoleDao;
 import com.licyun.model.User;
+import com.licyun.model.UserPR;
 import com.licyun.model.UserPermission;
 import com.licyun.model.UserRole;
 import com.licyun.service.UserService;
@@ -77,6 +78,22 @@ public class UserServiceImp implements UserService {
 
     public List<User> findAllUsers(){
         return userdao.findAllUsers();
+    }
+
+    public UserPR findUserPRById(int id){
+        //获取id对应的email
+        String email = userdao.findByUserId(id).getEmail();
+        //获取id对应的user
+        User user = userdao.findByUserId(id);
+        //根据email获取role
+        String roles = userRoleDao.findRolesByEmail(email);
+        //根据email获取admin
+        int admin = userRoleDao.findAdminByEmail(email);
+        String permission = userPermissionDao.findPermissionsByEmail(email);
+        //获取拼接对象userPR
+        UserPR userPR = new UserPR(email, user.getUsername(),
+                user.getPassword(), roles, permission, admin);
+        return userPR;
     }
 
     public Long insertUser(User user){

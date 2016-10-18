@@ -18,6 +18,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="<%=path%>/user/index"><span class="glyphicon glyphicon-user"></span> 用户中心</a></li>
+            <li><a href="<%=path%>/user/loginout"><span class="glyphicon glyphicon-log-in"></span> 退出登录</a></li>
         </ul>
     </div>
 </nav>

@@ -15,5 +15,9 @@
             <a class="navbar-brand" href="<%=path%>/admin/videos">视频管理</a>
             <a class="navbar-brand" href="<%=path%>/admin/addvideo">添加视频</a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="<%=path%>/user/loginout"><span class="glyphicon glyphicon-log-in"></span> 退出登录</a></li>
+        </ul>
     </div>
+
 </nav>

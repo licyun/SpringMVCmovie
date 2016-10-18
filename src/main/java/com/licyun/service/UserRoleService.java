@@ -11,11 +11,13 @@ public interface UserRoleService {
 
     String findRolesByEmail(String email);
 
-    boolean findAdminByEmail(String email);
+    int findAdminByEmail(String email);
+
+    boolean findIsAdminByEmail(String email);
 
     Long insertRoles(String email, String roles);
 
-    Long updateRoles(String email, String roles);
+    Long updateRoles(String email, String roles, int admin);
 
     Long deleteRolesByEmail(String email);
 }

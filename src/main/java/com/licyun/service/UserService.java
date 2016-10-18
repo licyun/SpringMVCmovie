@@ -1,6 +1,7 @@
 package com.licyun.service;
 
 import com.licyun.model.User;
+import com.licyun.model.UserPR;
 
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,8 @@ public interface UserService {
     User findByName(String name);
 
     User findByEmail(String email);
+
+    UserPR findUserPRById(int id);
 
     Set<String> findRolesByEmail(String email);
 

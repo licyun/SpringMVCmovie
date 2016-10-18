@@ -22,8 +22,11 @@ public class UserRoleServiceImp implements UserRoleService{
         return userRoleDao.findRolesByEmail(email);
     }
 
-    public boolean findAdminByEmail(String email){
-        System.out.println("aaaaaaa"+userRoleDao.findAdminByEmail(email));
+    public int findAdminByEmail(String email){
+        return userRoleDao.findAdminByEmail(email);
+    }
+
+    public boolean findIsAdminByEmail(String email){
         if( userRoleDao.findAdminByEmail(email) == 1)
             return true;
         return false;
@@ -33,13 +36,15 @@ public class UserRoleServiceImp implements UserRoleService{
         UserRole userRole = new UserRole();
         userRole.setEmail(email);
         userRole.setRoleName(roles);
+        userRole.setAdmin(0);
         return userRoleDao.insertRoles(userRole);
     }
 
-    public Long updateRoles(String email, String roles){
+    public Long updateRoles(String email, String roles, int admin){
         UserRole userRole = new UserRole();
         userRole.setEmail(email);
         userRole.setRoleName(roles);
+        userRole.setAdmin(admin);
         return userRoleDao.updateRoles(userRole);
     }
 

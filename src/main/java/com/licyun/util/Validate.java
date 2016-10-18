@@ -1,7 +1,9 @@
 package com.licyun.util;
 
 import com.licyun.model.User;
+import com.licyun.model.UserPR;
 import com.licyun.model.Video;
+import com.licyun.service.UserRoleService;
 import com.licyun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,9 @@ public class Validate {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     //公共验证规则
     public void commonValidate(User user, Errors errors) {
@@ -83,20 +88,12 @@ public class Validate {
             User sqlUser = userService.findByEmail(user.getEmail());
             if(sqlUser != null){
                 if(sqlUser.getPassword().equals(user.getPassword())){
-                    boolean isAdmin = false;
-                    //判断用户是否具有管理员权限
-                    Set<String> roles = userService.findRolesByEmail(user.getEmail());
-                    Iterator it = roles.iterator();
-                    while (it.hasNext()){
-                        String role = (String)it.next();
-                        System.out.println(role);
-                        if( role.indexOf("admin") != -1 ){
-                            isAdmin = true;
-                            break;
-                        }
-                    }
-                    if(!isAdmin)
+                    //判断用户是否有管理员权限
+                    if(userRoleService.findAdminByEmail(user.getEmail())){
+
+                    }else{
                         errors.rejectValue("email", "useremail.notexist");
+                    }
                 }else{
                     errors.rejectValue("password", "userpasswd.error");
                 }
@@ -116,6 +113,5 @@ public class Validate {
             }
         }
     }
-
 
 }

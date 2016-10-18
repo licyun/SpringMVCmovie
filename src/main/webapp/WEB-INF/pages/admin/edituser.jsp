@@ -19,12 +19,12 @@
 <body>
 <c:import url="../common/admin_header.jsp"/>
 <div class="container">
-    <form:form modelAttribute="user" method="post" class="form-horizontal" role="form">
+    <form:form modelAttribute="userPR" method="post" class="form-horizontal" role="form">
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">用户名:</label>
             <div class="col-sm-4">
-                <form:input path="username" id="name"/>
-                <form:errors path="username"/>
+                <form:input path="name" id="name"/>
+                <form:errors path="name"/>
             </div>
         </div>
         <div class="form-group">
@@ -35,10 +35,30 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="passwd" class="col-sm-2 control-label">密码:</label>
+            <label for="password" class="col-sm-2 control-label">密码:</label>
             <div class="col-sm-4">
                 <form:input path="password" id="passwd"/>
                 <form:errors path="password"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="userRole" class="col-sm-2 control-label">角色:</label>
+            <div class="col-sm-4">
+                <input type="radio" name="userRole" value="user"
+                       <c:if test="${userPR.userRole == 'user'}">checked</c:if> >user
+                <input type="radio" name="userRole" value="vip"
+                       <c:if test="${userPR.userRole == 'vip'}">checked</c:if> >vip
+                <form:errors path="userRole"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="userPermission" class="col-sm-2 control-label">权限:</label>
+            <div class="col-sm-4">
+                <input type="radio" name="userPermission" value="user:user"
+                       <c:if test="${userPR.userPermission == 'user:user'}">checked</c:if> >user
+                <input type="radio" name="userPermission" value="user:vipplus"
+                       <c:if test="${userPR.userPermission == 'user:vipplus'}">checked</c:if> >vipplus
+                <form:errors path="userPermission"/>
             </div>
         </div>
         <div class="form-group">

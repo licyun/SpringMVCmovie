@@ -27,15 +27,6 @@
         from user where email = #{email}
     </select>
 
-    <select id="findRolesByEmail" parameterType="String" resultType="String">
-        SELECT r.role_name from user_role r, user u
-        WHERE r.email = u.email AND u.email = #{email}
-    </select>
-
-    <select id="findPermissionsByEmail" parameterType="String" resultType="String">
-      SELECT p.permission from user_permission p
-      WHERE p.email = #{email}
-    </select>
 
     <select id="findAllUsers" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from user

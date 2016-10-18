@@ -18,17 +18,9 @@ public interface UserDao {
 
     User findByEmail(String email);
 
-    String findRolesByEmail(String email);
-
-    String findPermissionsByEmail(String email);
-
     List<User> findAllUsers();
 
     Long insertUser(User user);
-
-    Long insertRolesByEmail(String email);
-
-    Long insertPermissionsByEmail(String email);
 
     Long updateUser(User user);
 

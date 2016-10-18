@@ -1,7 +1,8 @@
 package com.licyun.controller;
 
-import com.licyun.model.User;
-import com.licyun.model.Video;
+import com.licyun.model.*;
+import com.licyun.service.UserPermissionService;
+import com.licyun.service.UserRoleService;
 import com.licyun.service.UserService;
 import com.licyun.service.VideoService;
 import com.licyun.util.UploadImg;
@@ -42,6 +43,12 @@ public class AdminController {
 
     @Autowired
     private VideoService videoService;
+
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @Autowired
+    private UserPermissionService userPermissionService;
 
     /**
      * 登录
@@ -86,35 +93,47 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.GET})
     public String editUser(@PathVariable int uid, Model model) {
-        model.addAttribute("user", userService.findByUserId(uid));
+        //获取id对应的email
+        String email = userService.findByUserId(uid).getEmail();
+        User user = userService.findByUserId(uid);
+        //获取拼接对象userPR
+        UserPR userPR = new UserPR(email, user.getUsername(), user.getPassword(),
+                userRoleService.findRolesByEmail(email), userPermissionService.findPermissionsByEmail(email));
+        model.addAttribute("userPR", userPR);
         return "admin/edituser";
     }
     @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.POST})
-    public String editUser(@Valid User user, BindingResult result,
+    public String editUser(@Valid UserPR userPR, BindingResult result,
                            @PathVariable int uid, HttpServletRequest request) {
-        validate.updateValidate(user, uid, result);
+        //从userPR中分离出user
+        User validUser = new User(userPR.getName(), userPR.getPassword(), userPR.getEmail());
+        validate.updateValidate(validUser, uid, result);
         if(result.hasErrors()){
             return "user/edituser";
         }
+        //获取id对应的email
+        String email = userService.findByUserId(uid).getEmail();
+        //插入role
+        userRoleService.updateRoles(email, userPR.getUserRole());
+        //插入permission
+        userPermissionService.updatePermissions(email, userPR.getUserPermission());
+        //插入user
+        User user = userService.findByUserId(uid);
         userService.updateUserById(user, uid);
         return "redirect:"+request.getContextPath()+"/admin/index";
     }
 
     @RequestMapping(value = {"/admin/deleteuser-{uid}"}, method = {RequestMethod.GET})
     public String deleteUser(@PathVariable int uid, HttpServletRequest request) {
+        //获取id对应的email
+        String email = userService.findByUserId(uid).getEmail();
+        //删除role
+        userRoleService.deleteRolesByEmail(email);
+        //删除permission
+        userPermissionService.deletePermissionsByEmail(email);
+        //删除user
         userService.deleteById(uid);
         return "redirect:"+request.getContextPath()+"/admin/index";
-    }
-
-    @RequestMapping(value = {"/admin/editimg-{uid}"}, method = {RequestMethod.GET})
-    public String editImg(@PathVariable int uid) {
-
-        return "admin/editimg";
-    }
-
-    @RequestMapping(value = {"/admin/403"}, method = {RequestMethod.GET})
-    public String noPermission() {
-        return "admin/403";
     }
 
 }

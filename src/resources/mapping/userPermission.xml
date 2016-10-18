@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.licyun.dao.UserPermissionDao" >
+
+    <select id="findPermissionsByEmail" parameterType="String" resultType="String">
+        select user_permission.permission
+        from user_permission where email = #{email}
+    </select>
+
+    <insert id="insertPermissions" parameterType="com.licyun.model.UserPermission">
+        INSERT INTO user_permission (email, permission )
+        VALUES (#{email}, #{permission})
+    </insert>
+
+    <update id="updatePermissions" parameterType="com.licyun.model.UserPermission">
+        UPDATE user_permission SET email = #{email}, permission = #{permission}
+        WHERE email = #{email}
+    </update>
+
+    <delete id="deletePermissionsByEmail" parameterType="String">
+        DELETE from user_permission WHERE email = #{email}
+    </delete>
+
+</mapper>

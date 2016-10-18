@@ -1,7 +1,11 @@
 package com.licyun.service.imp;
 
 import com.licyun.dao.UserDao;
+import com.licyun.dao.UserPermissionDao;
+import com.licyun.dao.UserRoleDao;
 import com.licyun.model.User;
+import com.licyun.model.UserPermission;
+import com.licyun.model.UserRole;
 import com.licyun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,12 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UserDao userdao;
 
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+    @Autowired
+    private UserPermissionDao userPermissionDao;
+
     public User findByUserId(int id){
         return userdao.findByUserId(id);
     }
@@ -35,7 +45,7 @@ public class UserServiceImp implements UserService {
 
     public Set<String> findRolesByEmail(String email){
         //查询到带逗号分隔的角色信息
-        String strRoles = userdao.findRolesByEmail(email);
+        String strRoles = userRoleDao.findRolesByEmail(email);
         Set<String> roles = new HashSet<String>();
         //判断是否带逗号分隔，否则会出现空指针异常
         if(strRoles.contains(",")){
@@ -51,7 +61,7 @@ public class UserServiceImp implements UserService {
 
     public Set<String> findPermissionsByEmail(String email){
         //查询到带逗号分隔的角色信息
-        String strPermissions = userdao.findPermissionsByEmail(email);
+        String strPermissions = userPermissionDao.findPermissionsByEmail(email);
         Set<String> permissions = new HashSet<String>();
         //判断是否带逗号分隔，否则会出现空指针异常
         if(strPermissions.contains(",")){
@@ -70,8 +80,16 @@ public class UserServiceImp implements UserService {
     }
 
     public Long insertUser(User user){
-
-
+        //为用户赋予默认角色
+        UserRole userRole = new UserRole();
+        userRole.setEmail(user.getEmail());
+        userRole.setRoleName("user");
+        userRoleDao.insertRoles(userRole);
+        //为用户赋予默认权限
+        UserPermission userPermission = new UserPermission();
+        userPermission.setEmail(user.getEmail());
+        userPermission.setPermission("user:user");
+        userPermissionDao.insertPermissions(userPermission);
         return userdao.insertUser(user);
     }
 

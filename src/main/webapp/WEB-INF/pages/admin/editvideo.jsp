@@ -38,10 +38,15 @@
             <div class="form-group">
                 <label for="playType" class="col-sm-3 control-label">播放类型:</label>
                 <div class="col-sm-4">
-                    <input type="radio" name="playType" value="free" checked/>free
-                    <input type="radio" name="playType" value="user"/>user
-                    <input type="radio" name="playType" value="vip"/>vip
-                    <input type="radio" name="playType" value="vipplus"/>vipplus
+
+                    <input type="radio" name="playType" value="free"
+                           <c:if test="${video.playType == 'free'}">checked</c:if>/>free
+                    <input type="radio" name="playType" value="user"
+                           <c:if test="${video.playType == 'user'}">checked</c:if>/>user
+                    <input type="radio" name="playType" value="vip"
+                           <c:if test="${video.playType == 'vip'}">checked</c:if>/>vip
+                    <input type="radio" name="playType" value="vipplus"
+                           <c:if test="${video.playType == 'vipplus'}">checked</c:if>/>vipplus
                     <form:errors path="playType"/>
                 </div>
             </div>

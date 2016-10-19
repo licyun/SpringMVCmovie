@@ -21,8 +21,7 @@
 
 ### 分页说明
 - 分页数据使用select  limit start, size 查询出指定的数据,通过controller的responsive返回List<Video>的json数据，
-前台通过ajax得到json数据后循环输出到id为videos的dom结点上。其中要注意的是页面边界的问题，currentPage
-记录当前页面数，当到达第一页或者最后一页时，currentPage不变。
+前台通过ajax得到json数据后循环输出到id为videos的dom结点上。
 
 ### 暂时想到这么多，有坑以后再填
 

@@ -2,7 +2,7 @@ package com.licyun.model;
 
 /**
  * Created by 李呈云
- * Description:
+ * Description: 整合了user usrRole 和userPermission 便于mybatis查询出所有数据
  * 2016/10/18.
  */
 public class UserPR {

@@ -37,6 +37,13 @@ public class VideoServiceImp implements VideoService {
         return videoDao.findVideosByPlayType(type);
     }
 
+    /**
+     * 根据类型分页查询
+     * @param type  视频类型
+     * @param page  需要查找的页数
+     * @param size  每页查询多少数据
+     * @return
+     */
     public List<Video> findVideosByTypeAndPage(String type, int page, int size){
         //计算开始查找的位置
         if(page < 1)
@@ -50,6 +57,12 @@ public class VideoServiceImp implements VideoService {
 
     }
 
+    /**
+     *  查询首页所有视频的分页数据
+     * @param page  需要查询的页面
+     * @param size  每页查询的数量
+     * @return
+     */
     public List<Video> findVideosByIndex(int page, int size){
         //计算开始查找的位置
         if(page < 1)

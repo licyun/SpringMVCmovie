@@ -2,7 +2,7 @@ package com.licyun.model;
 
 /**
  * Created by 李呈云
- * Description:
+ * Description: 用户权限实体类
  * 2016/10/18.
  */
 public class UserPermission {

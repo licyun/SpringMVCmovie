@@ -50,8 +50,9 @@ public class AdminController {
     private UserPermissionService userPermissionService;
 
     /**
-     * 登录
+     * 管理员登录
      * @param model
+     * @param session
      * @return
      */
     @RequestMapping(value = {"/admin/login"}, method = {RequestMethod.GET})
@@ -78,25 +79,46 @@ public class AdminController {
 
     }
 
-    //退出登录
+    /**
+     * 退出登录
+     * @param session 清除session
+     * @param request 转发请求到登录页面
+     * @return
+     */
     @RequestMapping(value = {"/admin/loginout"}, method = {RequestMethod.GET})
     public String loginout(HttpSession session, HttpServletRequest request){
         session.invalidate();
         return "redirect:"+request.getContextPath()+"/admin/login";
     }
 
+    /**
+     * 管理员首页
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/admin/index", "/admin"}, method = {RequestMethod.GET})
     public String admin(Model model) {
         model.addAttribute("users", userService.findAllUsers());
         return "admin/index";
     }
 
+    /**
+     * 查看所有视频
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/admin/videos"}, method = {RequestMethod.GET})
     public String video(Model model) {
         model.addAttribute("videos", videoService.findAllVideos());
         return "admin/videos";
     }
 
+    /**
+     * 编辑用户
+     * @param uid  用户id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.GET})
     public String editUser(@PathVariable int uid, Model model) {
         UserPR userPR = userService.findUserPRById(uid);
@@ -123,6 +145,12 @@ public class AdminController {
         return "redirect:"+request.getContextPath()+"/admin/index";
     }
 
+    /**
+     * 删除用户
+     * @param uid   用户id
+     * @param request   转发请求到用户查看页面
+     * @return
+     */
     @RequestMapping(value = {"/admin/deleteuser-{uid}"}, method = {RequestMethod.GET})
     public String deleteUser(@PathVariable int uid, HttpServletRequest request) {
         //获取id对应的email

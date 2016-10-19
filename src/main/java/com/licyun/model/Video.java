@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * Created by 李呈云
- * Description:
+ * Description:视频实体类
  * 2016/10/17.
  */
 public class Video {

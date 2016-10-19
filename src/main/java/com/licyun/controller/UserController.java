@@ -42,6 +42,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 用户注册
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/user/register"}, method = {RequestMethod.GET})
     public String register(Model model){
         model.addAttribute("user", new User());
@@ -50,14 +55,23 @@ public class UserController {
     @RequestMapping(value = {"/user/register"}, method = {RequestMethod.POST})
     public String register(@Valid User user, BindingResult result,
                            HttpServletRequest request){
+        //验证表单输入是否如何规则
         validate.registValidate(user, result);
         if(result.hasErrors()){
             return "user/register";
         }
+        //添加用户
         userService.insertUser(user);
         return "redirect:"+ request.getContextPath() +"/user/login";
     }
 
+    /**
+     * 用户登录
+     * @param model
+     * @param session   当session存在时跳转到首页
+     * @param request
+     * @return
+     */
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
     public String login(Model model, HttpSession session,
                         HttpServletRequest request){
@@ -78,8 +92,10 @@ public class UserController {
         }
         //shiro验证
         Subject subject = SecurityUtils.getSubject();
+        //设置email 和password token
         UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getPassword());
         try{
+            //使用Shiro验证token
             subject.login(token);
             session.setAttribute("user", userService.findByEmail(user.getEmail()));
             model.addAttribute("user", userService.findByEmail(user.getEmail()));
@@ -91,11 +107,21 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户中心首页
+     * @return
+     */
     @RequestMapping(value = {"/user", "/user/index"}, method = {RequestMethod.GET})
     public String index(){
         return "user/index";
     }
 
+    /**
+     * 编辑用户
+     * @param uid 用户id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.GET})
     public String editUser(@PathVariable int uid, Model model){
         model.addAttribute("user", userService.findByUserId(uid));
@@ -103,12 +129,13 @@ public class UserController {
     }
     @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.POST})
     public String editUser(@Valid User user, BindingResult result,
-                           @PathVariable int uid, Model model,
-                           HttpServletRequest request){
+                           @PathVariable int uid, HttpServletRequest request){
+        //判断表单数据是否正确
         validate.updateValidate(user, uid, result);
         if(result.hasErrors()){
             return "user/edituser";
         }
+        //修改用户
         userService.updateUserById(user, uid);
         return "redirect:"+request.getContextPath()+"/user/index";
     }

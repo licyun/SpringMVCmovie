@@ -44,6 +44,11 @@ public class UserServiceImp implements UserService {
         return userdao.findByEmail(email);
     }
 
+    /**
+     * 查询用户角色
+     * @param email 用户邮箱
+     * @return  Set<String>类型的角色信息
+     */
     public Set<String> findRolesByEmail(String email){
         //查询到带逗号分隔的角色信息
         String strRoles = userRoleDao.findRolesByEmail(email);
@@ -60,8 +65,13 @@ public class UserServiceImp implements UserService {
         return roles;
     }
 
+    /**
+     * 查询用户权限
+     * @param email 用户邮箱
+     * @return  Set<String>类型的权限信息
+     */
     public Set<String> findPermissionsByEmail(String email){
-        //查询到带逗号分隔的角色信息
+        //查询到带逗号分隔的权限信息
         String strPermissions = userPermissionDao.findPermissionsByEmail(email);
         Set<String> permissions = new HashSet<String>();
         //判断是否带逗号分隔，否则会出现空指针异常
@@ -80,6 +90,11 @@ public class UserServiceImp implements UserService {
         return userdao.findAllUsers();
     }
 
+    /**
+     * 根据用户id查询UserPR
+     * @param id 用户id
+     * @return
+     */
     public UserPR findUserPRById(int id){
         //获取id对应的email
         String email = userdao.findByUserId(id).getEmail();
@@ -96,6 +111,11 @@ public class UserServiceImp implements UserService {
         return userPR;
     }
 
+    /**
+     * 添加用户并赋予默认角色和权限
+     * @param user  前台表单传递的用户实体类
+     * @return
+     */
     public Long insertUser(User user){
         //为用户赋予默认角色
         UserRole userRole = new UserRole();
@@ -126,6 +146,11 @@ public class UserServiceImp implements UserService {
         return userdao.deleteById(id);
     }
 
+    /**
+     * 判断用户email是否存在,防止添加重复的邮箱
+     * @param email
+     * @return
+     */
     public boolean isUserEmailExist(String email){
         List<User> users = findAllUsers();
         for(User user : users){
@@ -136,6 +161,12 @@ public class UserServiceImp implements UserService {
         return false;
     }
 
+    /**
+     *  判断用户email是否除自身外存在，防止更新用户信息时出现重复的邮箱
+     * @param sqlEmail      数据库中的email
+     * @param localEmail    待更新的email
+     * @return
+     */
     public boolean isUserEmailExistExceptSelf(String sqlEmail, String localEmail){
         List<User> users = findAllUsers();
         for(User user : users){

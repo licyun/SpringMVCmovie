@@ -2,7 +2,7 @@ package com.licyun.model;
 
 /**
  * Created by 李呈云
- * Description:
+ * Description: 用户实体类
  * 2016/10/14.
  */
 public class User {

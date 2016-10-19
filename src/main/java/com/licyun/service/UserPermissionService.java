@@ -1,8 +1,5 @@
 package com.licyun.service;
 
-import com.licyun.model.UserPermission;
-import com.licyun.model.UserRole;
-
 /**
  * Created by 李呈云
  * Description:

@@ -39,6 +39,8 @@ public class VideoServiceImp implements VideoService {
 
     public List<Video> findVideosByTypeAndPage(String type, int page, int size){
         //计算开始查找的位置
+        if(page < 1)
+            page = 1;
         int start = (page - 1) * size;
         Map<String, Object> map=new HashMap<String, Object>();
         map.put("playType", type);
@@ -46,6 +48,17 @@ public class VideoServiceImp implements VideoService {
         map.put("size", size);
         return videoDao.findVideosByTypeAndPage(map);
 
+    }
+
+    public List<Video> findVideosByIndex(int page, int size){
+        //计算开始查找的位置
+        if(page < 1)
+            page = 1;
+        int start = (page - 1) * size;
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("start", start);
+        map.put("size", size);
+        return videoDao.findVideosByIndex(map);
     }
 
     public List<Video> findAllVideos(){

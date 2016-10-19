@@ -48,7 +48,7 @@ public class VideoController {
         //总页面数
         int pageCount = (int)Math.ceil(videoService.findVideosCount() / 4.0f);
         model.addAttribute("pageCount", pageCount);
-        model.addAttribute("videos", videoService.findAllVideos());
+        model.addAttribute("videos", videoService.findVideosByIndex(1, 4));
         logger.debug("test");
         return "/index";
     }
@@ -59,8 +59,12 @@ public class VideoController {
     public List<Video> jsonPage(@PathVariable String type, @PathVariable int page ){
         //每页大小
         int size = 4;
-        List<Video> pages = videoService.findVideosByTypeAndPage(type, page, size);
-        return pages;
+        //当type为首页时，不需要按type查找
+        logger.debug(type);
+        if( type.equals("index") ){
+            return videoService.findVideosByIndex(page, size);
+        }
+        return videoService.findVideosByTypeAndPage(type, page, size);
     }
 
     @RequestMapping(value = {"/list/{type}"}, method = {RequestMethod.GET})

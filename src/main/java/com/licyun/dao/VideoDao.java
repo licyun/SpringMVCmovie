@@ -20,6 +20,8 @@ public interface VideoDao {
 
     List<Video> findVideosByTypeAndPage(Map map);
 
+    List<Video> findVideosByIndex(Map map);
+
     List<Video> findAllVideos();
 
     int findVideosCount();

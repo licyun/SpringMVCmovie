@@ -19,6 +19,8 @@ public interface VideoService {
 
     List<Video> findVideosByTypeAndPage(String type, int page, int size);
 
+    List<Video> findVideosByIndex(int page, int size);
+
     List<Video> findAllVideos();
 
     int findVideosCount();

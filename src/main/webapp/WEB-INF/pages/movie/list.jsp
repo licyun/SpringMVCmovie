@@ -38,22 +38,7 @@
         </h1>
     </div>
     <div id="videos">
-        <%--<c:forEach items="${videos}" var="video">--%>
-            <%--<div class="col-sm-6 col-md-3">--%>
-                <%--<div class="thumbnail">--%>
-                    <%--<img src="<%=path%>/img/video/${video.img}" width="100%" height="250" alt="${video.name}">--%>
-                    <%--<div class="caption">--%>
-                        <%--<h3 class="nowrap">${video.name}</h3>--%>
-                        <%--<p class="nowrap">${video.starring}</p>--%>
-                        <%--<p>--%>
-                            <%--<a href="<%=path%>/description/${type}-${video.id}" class="btn btn-primary" role="button">--%>
-                                <%--查看影片--%>
-                            <%--</a>--%>
-                        <%--</p>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</c:forEach>--%>
+
     </div>
     <div class="col-sm-12">
         <ul class="pagination">

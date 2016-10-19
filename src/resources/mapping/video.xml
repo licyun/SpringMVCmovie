@@ -41,6 +41,12 @@
         LIMIT #{start, jdbcType=BIGINT}, #{size, jdbcType=BIGINT}
     </select>
 
+    <select id="findVideosByIndex" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM video
+        ORDER BY id desc LIMIT #{start, jdbcType=BIGINT},
+        #{size, jdbcType=BIGINT}
+    </select>
+
     <select id="findAllVideos" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List"/> FROM video
     </select>

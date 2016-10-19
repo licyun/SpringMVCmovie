@@ -37,7 +37,16 @@
                 </div>
             </c:forEach>
         </div>
-
+        <div class="clearfix"></div>
+        <div class="col-sm-offset-2">
+            <ul class="pagination">
+                <li><a id="page-before" href="#!">&laquo;</a></li>
+                <c:forEach begin="1" end="${pageCount}" var="v" >
+                    <li><a class="pages" href="#!">${v}</a></li>
+                </c:forEach>
+                <li><a id="page-after" href="#!">&raquo;</a></li>
+            </ul>
+        </div>
     </div>
 
 

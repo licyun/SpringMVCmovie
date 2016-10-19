@@ -49,16 +49,14 @@ public class UserController {
     }
     @RequestMapping(value = {"/user/register"}, method = {RequestMethod.POST})
     public String register(@Valid User user, BindingResult result,
-                           Model model){
+                           HttpServletRequest request){
         validate.registValidate(user, result);
         if(result.hasErrors()){
             return "user/register";
         }
         userService.insertUser(user);
-        model.addAttribute("user", userService.findByEmail(user.getEmail()));
-        return "user/login";
+        return "redirect:"+ request.getContextPath() +"/user/login";
     }
-
 
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
     public String login(Model model, HttpSession session,
@@ -147,6 +145,4 @@ public class UserController {
         model.addAttribute("user", user);
         return "user/index";
     }
-
-
 }

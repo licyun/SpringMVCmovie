@@ -3,6 +3,7 @@ package com.licyun.dao;
 import com.licyun.model.Video;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 李呈云
@@ -17,7 +18,13 @@ public interface VideoDao {
 
     List<Video> findVideosByPlayType(String type);
 
+    List<Video> findVideosByTypeAndPage(Map map);
+
     List<Video> findAllVideos();
+
+    int findVideosCount();
+
+    int findVideosCountByType(String type);
 
     Long insertVideo(Video video);
 

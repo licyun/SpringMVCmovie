@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 李呈云
@@ -36,8 +37,27 @@ public class VideoServiceImp implements VideoService {
         return videoDao.findVideosByPlayType(type);
     }
 
+    public List<Video> findVideosByTypeAndPage(String type, int page, int size){
+        //计算开始查找的位置
+        int start = (page - 1) * size;
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("playType", type);
+        map.put("start", start);
+        map.put("size", size);
+        return videoDao.findVideosByTypeAndPage(map);
+
+    }
+
     public List<Video> findAllVideos(){
         return videoDao.findAllVideos();
+    }
+
+    public int findVideosCount(){
+        return videoDao.findVideosCount();
+    }
+
+    public int findVideosCountByType(String type){
+        return videoDao.findVideosCountByType(type);
     }
 
     public Long insertVideo(Video video){

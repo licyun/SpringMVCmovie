@@ -17,7 +17,13 @@ public interface VideoService {
 
     List<Video> findVideosByPlayType(String type);
 
+    List<Video> findVideosByTypeAndPage(String type, int page, int size);
+
     List<Video> findAllVideos();
+
+    int findVideosCount();
+
+    int findVideosCountByType(String type);
 
     Long insertVideo(Video video);
 

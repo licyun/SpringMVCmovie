@@ -1,24 +1,21 @@
 package com.licyun.controller;
 
-import com.licyun.dao.VideoDao;
 import com.licyun.model.Video;
 import com.licyun.service.VideoService;
 import com.licyun.util.UploadImg;
-import com.licyun.util.Validate;
 import com.licyun.util.VideoValid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by 李呈云
@@ -40,18 +37,37 @@ public class VideoController {
     @Autowired
     private VideoValid videoValid;
 
+    private static Logger logger = LoggerFactory.getLogger(VideoController.class);
+
     /**
      * video
      */
 
     @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.GET})
     public String list(Model model){
+        //总页面数
+        int pageCount = (int)Math.ceil(videoService.findVideosCount() / 4.0f);
+        model.addAttribute("pageCount", pageCount);
         model.addAttribute("videos", videoService.findAllVideos());
+        logger.debug("test");
         return "/index";
+    }
+
+    //分页json数据
+    @ResponseBody
+    @RequestMapping(value = {"/jsonPage-{type}-{page}"}, method = {RequestMethod.GET})
+    public List<Video> jsonPage(@PathVariable String type, @PathVariable int page ){
+        //每页大小
+        int size = 4;
+        List<Video> pages = videoService.findVideosByTypeAndPage(type, page, size);
+        return pages;
     }
 
     @RequestMapping(value = {"/list/{type}"}, method = {RequestMethod.GET})
     public String list(@PathVariable String type, Model model){
+        //总页面数
+        int pageCount = (int)Math.ceil(videoService.findVideosCountByType(type) / 4.0f);
+        model.addAttribute("pageCount", pageCount);
         model.addAttribute("type", type);
         model.addAttribute("videos", videoService.findVideosByPlayType(type));
         return "movie/list";

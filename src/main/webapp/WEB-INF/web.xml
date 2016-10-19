@@ -5,6 +5,21 @@
 
 	<display-name>Spring MVC Application</display-name>
 
+    <!-- 设置由Sprng载入的Log4j配置文件位置 -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log4j.properties</param-value>
+    </context-param>
+
+    <!-- Spring刷新Log4j配置文件变动的间隔,单位为毫秒 -->
+    <context-param>
+        <param-name>log4jRefreshInterval</param-name>
+        <param-value>10000</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
 
     <!-- shiro过滤器定义 -->
     <filter>

@@ -53,8 +53,7 @@ public class UserController {
         return "user/register";
     }
     @RequestMapping(value = {"/user/register"}, method = {RequestMethod.POST})
-    public String register(@Valid User user, BindingResult result,
-                           HttpServletRequest request){
+    public String register(@Valid User user, BindingResult result){
         //验证表单输入是否如何规则
         validate.registValidate(user, result);
         if(result.hasErrors()){
@@ -62,22 +61,20 @@ public class UserController {
         }
         //添加用户
         userService.insertUser(user);
-        return "redirect:"+ request.getContextPath() +"/user/login";
+        return "redirect:/user/login";
     }
 
     /**
      * 用户登录
      * @param model
      * @param session   当session存在时跳转到首页
-     * @param request
      * @return
      */
     @RequestMapping(value = {"/user/login"}, method = {RequestMethod.GET})
-    public String login(Model model, HttpSession session,
-                        HttpServletRequest request){
+    public String login(Model model, HttpSession session){
         User sessionUser = (User)session.getAttribute("user");
         if(sessionUser != null){
-            return "redirect:"+request.getContextPath()+"/user/index";
+            return "redirect:/user/index";
         }
         model.addAttribute("user", new User());
         return "user/login";
@@ -129,7 +126,7 @@ public class UserController {
     }
     @RequestMapping(value = {"/user/edituser-{uid}"}, method = {RequestMethod.POST})
     public String editUser(@Valid User user, BindingResult result,
-                           @PathVariable int uid, HttpServletRequest request){
+                           @PathVariable int uid){
         //判断表单数据是否正确
         validate.updateValidate(user, uid, result);
         if(result.hasErrors()){
@@ -137,7 +134,7 @@ public class UserController {
         }
         //修改用户
         userService.updateUserById(user, uid);
-        return "redirect:"+request.getContextPath()+"/user/index";
+        return "redirect:/user/index";
     }
 
     /**

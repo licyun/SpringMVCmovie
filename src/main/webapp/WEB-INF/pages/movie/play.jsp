@@ -26,7 +26,7 @@
         </div>
 
         <div>
-           <iframe src="/ckplay/${video.playType}-${video.vid}" width="100%" height="350"></iframe>
+           <iframe src="<%=path%>/ckplay/${video.playType}-${video.vid}" width="100%" height="350"></iframe>
         </div>
 
     </div>

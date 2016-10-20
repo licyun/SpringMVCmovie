@@ -4,7 +4,7 @@
 function getjson(type, i) {
     $.ajax( {
         type : "get",
-        url : "../jsonPage-" + type + "-" + i,
+        url : "jsonPage-" + type + "-" + i,
         dataType:"json",
         success : function(jsondata) {
             $("#videos").empty();
@@ -13,9 +13,9 @@ function getjson(type, i) {
             for(var i =0; i < length; i++){
                 //img不存在时调用默认图片
                 if(data[i].img == null){
-                    data[i].img = "../img/nopic.jpg";
+                    data[i].img = "img/nopic.jpg";
                 }else{
-                    data[i].img = "../img/video/" + data[i].img;
+                    data[i].img = "img/video/" + data[i].img;
                 }
                 //循环添加div
                 var html =
@@ -26,7 +26,7 @@ function getjson(type, i) {
                                 "<h3 class='nowrap'>"+ data[i].name +"</h3>" +
                                 "<p class='nowrap'>"+ data[i].type +"</p>" +
                                 "<p>" +
-                                    "<a href='../description/"+ type + "-" + data[i].id +"' class='btn btn-primary' role='button'>" +
+                                    "<a href='description/"+ type + "-" + data[i].id +"' class='btn btn-primary' role='button'>" +
                                     "查看影片" +
                                     "</a>" +
                                 "</p>" +

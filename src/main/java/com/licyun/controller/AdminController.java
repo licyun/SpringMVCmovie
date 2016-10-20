@@ -10,6 +10,8 @@ import com.licyun.util.Validate;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +51,9 @@ public class AdminController {
     @Autowired
     private UserPermissionService userPermissionService;
 
+    private static Logger logger = LoggerFactory.getLogger(VideoController.class);
+
+
     /**
      * 管理员登录
      * @param model
@@ -82,13 +87,12 @@ public class AdminController {
     /**
      * 退出登录
      * @param session 清除session
-     * @param request 转发请求到登录页面
      * @return
      */
     @RequestMapping(value = {"/admin/loginout"}, method = {RequestMethod.GET})
-    public String loginout(HttpSession session, HttpServletRequest request){
+    public String loginout(HttpSession session){
         session.invalidate();
-        return "redirect:"+request.getContextPath()+"/admin/login";
+        return "redirect:/admin/login";
     }
 
     /**
@@ -127,7 +131,7 @@ public class AdminController {
     }
     @RequestMapping(value = {"/admin/edituser-{uid}"}, method = {RequestMethod.POST})
     public String editUser(@Valid UserPR userPR, BindingResult result,
-                           @PathVariable int uid, HttpServletRequest request) {
+                           @PathVariable int uid) {
         //从userPR中分离出user
         User user = new User(userPR.getName(), userPR.getPassword(), userPR.getEmail());
         validate.updateValidate(user, uid, result);
@@ -142,17 +146,16 @@ public class AdminController {
         userPermissionService.updatePermissions(email, userPR.getUserPermission());
         //插入user
         userService.updateUserById(user, uid);
-        return "redirect:"+request.getContextPath()+"/admin/index";
+        return "redirect:/admin/index";
     }
 
     /**
      * 删除用户
      * @param uid   用户id
-     * @param request   转发请求到用户查看页面
      * @return
      */
     @RequestMapping(value = {"/admin/deleteuser-{uid}"}, method = {RequestMethod.GET})
-    public String deleteUser(@PathVariable int uid, HttpServletRequest request) {
+    public String deleteUser(@PathVariable int uid) {
         //获取id对应的email
         String email = userService.findByUserId(uid).getEmail();
         //删除role
@@ -161,7 +164,7 @@ public class AdminController {
         userPermissionService.deletePermissionsByEmail(email);
         //删除user
         userService.deleteById(uid);
-        return "redirect:"+request.getContextPath()+"/admin/index";
+        return "redirect:/admin/index";
     }
 
 }

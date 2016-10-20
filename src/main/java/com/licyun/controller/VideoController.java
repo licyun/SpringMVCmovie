@@ -79,7 +79,7 @@ public class VideoController {
      * @param model
      * @return
      */
-    @RequestMapping(value = {"/list/{type}"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/list-{type}"}, method = {RequestMethod.GET})
     public String list(@PathVariable String type, Model model){
         //总页面数
         int pageCount = (int)Math.ceil(videoService.findVideosCountByType(type) / 4.0f);
@@ -156,7 +156,7 @@ public class VideoController {
         //图片上传完成后将图片路径写入数据表中
         video.setImg(uploadImg.uploadVideoImg(file, video, rootPath));
         videoService.insertVideo(video);
-        return "redirect:"+request.getContextPath()+"/admin/videos";
+        return "redirect:admin/videos";
     }
 
     /**
@@ -182,7 +182,7 @@ public class VideoController {
             video.setImg(uploadImg.uploadVideoImg(file, video, rootPath));
         }
         videoService.updateVideo(video);
-        return "redirect:"+request.getContextPath()+"/admin/videos";
+        return "redirect:/admin/videos";
     }
 
     /**
@@ -196,6 +196,6 @@ public class VideoController {
         //删除视频前先删除图片
         String rootPath = request.getServletContext().getRealPath(IMGURL);
         videoService.deleteVideoById(id, rootPath);
-        return "redirect:"+request.getContextPath()+"/admin/videos";
+        return "redirect:/admin/videos";
     }
 }

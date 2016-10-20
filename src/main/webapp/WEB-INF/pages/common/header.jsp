@@ -10,10 +10,10 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="<%=path%>/list/free">免费影片</a></li>
-                <li><a href="<%=path%>/list/user">用户影片</a></li>
-                <li><a href="<%=path%>/list/vip">会员影片</a></li>
-                <li><a href="<%=path%>/list/vipplus">点播影片</a></li>
+                <li><a href="<%=path%>/list-free">免费影片</a></li>
+                <li><a href="<%=path%>/list-user">用户影片</a></li>
+                <li><a href="<%=path%>/list-vip">会员影片</a></li>
+                <li><a href="<%=path%>/list-vipplus">点播影片</a></li>
             </ul>
         </div>
         <ul class="nav navbar-nav navbar-right">

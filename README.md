@@ -1,5 +1,7 @@
 ## springMVC Mybatis Shiro 开发的带会员观看权限的视频站管理系统
 ### 演示站 [java.licyun.com/movie](http://java.licyun.com/movie)
+## 管理员登录界面：[java.licyun.com/movie/admin/](http://java.licyun.com/movie/admin/)
+## 管理员帐号:mzkwy@qq.com 密码：123456
 ### 项目简介
 - 使用springMVC Mybatis Maven框架开发的权限认证管理系统,shiro验证用户观看角色和权限,MVC interceptor拦截管理员登录
 前台使用bootstrap构建，配置使用alibaba数据源,log4j生成日志和debug, AOP事务管理。

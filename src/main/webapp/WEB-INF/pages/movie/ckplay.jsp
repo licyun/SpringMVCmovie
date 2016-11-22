@@ -21,7 +21,7 @@
     var id = "${vid}";
     var type = "youku";
     var flashvars={
-        f:'http://xlleyun.duapp.com/tv/tvjx.php?id='+id+'%26type='+type,
+        f:'http://playm3u8.duapp.com/tv/tvjx.php?id='+id+'%26type='+type,
         a:encodeURIComponent(id),
         s:2,
         c:0,

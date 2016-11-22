@@ -28,7 +28,7 @@
         p:1
     };
     var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
-    var video=['https://xlleyun.duapp.com/tv/tvjx_m.php?id=' + encodeURIComponent(id) +'&type='+type+ '&ctype=phone'];    //此处需要指定资源站类型，并标记为移动输出。
+    var video=['https://playm3u8.duapp.com/tv/tvjx_m.php?id=' + encodeURIComponent(id) +'&type='+type+ '&ctype=phone'];    //此处需要指定资源站类型，并标记为移动输出。
     CKobject.embed('<%=path%>/ckplayer/ckplayer.swf','a1','ckplayer_a1','100%','100%',false,flashvars,video,params);
 </script>
 </body>

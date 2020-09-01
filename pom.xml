@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.springapp</groupId>
-    <artifactId>springMVC-mybatis-framework</artifactId>
+    <artifactId>springMVC-Movie</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>springMVC-mybatis-framework</name>
+    <name>springMVC-Movie</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -241,10 +241,8 @@
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
+                <directory>src/resources</directory>
+                <filtering>true</filtering>
             </resource>
         </resources>
     </build>

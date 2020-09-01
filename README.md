@@ -1,16 +1,21 @@
-## springMVC Mybatis Shiro 开发的带会员观看权限的视频站管理系统
-### 演示站 [java.licyun.com/movie](http://java.licyun.com/movie)
-## 管理员登录界面：[java.licyun.com/movie/admin/](http://java.licyun.com/movie/admin/)
-## 管理员帐号:mzkwy@qq.com 密码：123456
-### 项目简介
-- 使用springMVC Mybatis Maven框架开发的权限认证管理系统,shiro验证用户观看角色和权限,MVC interceptor拦截管理员登录
-前台使用bootstrap构建，配置使用alibaba数据源,log4j生成日志和debug, AOP事务管理。
-视频播放器使用ckPlayer,视频源ID和解析使用优酷(本站视频仅作测试用，如有侵权可联系本站删除)。
+### SSM(Spring SpringMVC Mybatis)框架开发简易视频站管理系统
+- 演示站 [movie.licyun.com](https://movie.licyun.com)
+- 管理员登录界面：[movie.licyun.com/admin/](https://movie.licyun.com/admin/)
+- 管理员帐号:licyun@qq.com 密码：123456
 
-### 功能介绍
-- 该系统分为2个角色，用户和管理员
-- 未登录用户能观看免费视频，登录用户能观看用户视频，用户联系管理员开通vip用户后能观看vip视频，开通vipplus权限后能观看黄金vip视频，用户还可以修改个人信息和头像
-- 管理员能修改用户信息，为用户赋予观看权限，添加视频和修改视频
+### 技术选择
+- SSM(Spring SpringMVC Mybatis)框架
+- Shiro框架 控制会员角色和视频播放权限
+- Spring MVC interceptor 拦截器控制管理员登陆
+- MessageSource 实现国际化消息资源
+- RESTFUL 格式传输参数
+- bootstrap 简陋构建前台
+- ckPlayer 播放器播放视频(本站视频仅作测试用，如有侵权可联系本站删除)。
+
+### 项目简介
+#### 该系统分为2个角色，用户和管理员
+1. 未登录用户能观看免费视频，登录用户能观看普通视频，用户升级为vip用户后能观看vip视频，开通vipplus权限后能观看黄金vip视频
+1. 管理员能修改用户信息，为用户赋予观看权限，添加视频和修改视频
 
 ### 系统结构
 - controller:控制层 admin user 和video 的请求转发处理
@@ -21,11 +26,32 @@
 - shiro: apache的开源组件，这里用来对用户赋予角色和授予权限
 - util: 工具层，UploadImg图片上传，Validate输入表单验证及错误返回。
 
-### 分页说明
-- 分页数据使用select  limit start, size 查询出指定的数据,通过controller的responsive返回List<Video>的json数据，
-前台通过ajax得到json数据后循环输出到id为videos的dom结点上。
+### 数据库权限表说明
 
-### 暂时想到这么多，有坑以后再填
+- userpermission用户权限表
+
+| id | email | permission |
+| --- | --- | --- |
+| 主键 | 邮箱 | 权限(user:user拥有普通权限，user:vipplus拥有视频点播权限) |
+
+- userrole 用户角色表
+
+| id | role_name | email | admin |
+|---|---|---|---|
+| 主键 | 角色名(user为普通用户，vip为会员用户) | 邮箱 | 是否管理员(true为管理员) |
+
+- user用户表
+
+| id | username | password | email | imgurl |
+|---|---|---|---|---|
+| 主键 | 用户名 | 密码 | 邮箱 | 图片链接 |
+
+- video 视频表
+
+| id | name | director | starring | type | area | data | vid | img | playtype | description|
+|---|---|---|---|---|---|---|---|---|---|---|
+| 主键 | 视频名 | 导演 | 演员 | 类型 | 地区 | 日期 | 视频id | 图片 | 播放类型 | 描述 |
+
 
 
 
